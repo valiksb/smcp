@@ -97,16 +97,16 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:gacdef77b0391388f16a60d3e0d0c32168"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gacdef77b0391388f16a60d3e0d0c32168"></a>
+typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__timer.html#gacdef77b0391388f16a60d3e0d0c32168">cms_t</a></td></tr>
+<tr class="memdesc:gacdef77b0391388f16a60d3e0d0c32168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relative time period, in milliseconds. <br/></td></tr>
+<tr class="separator:gacdef77b0391388f16a60d3e0d0c32168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d18b89549db8c8895080b0e012043d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2d18b89549db8c8895080b0e012043d4"></a>
 typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_timer_callback_t</b> )(<a class="el" href="structsmcp__s.html">smcp_t</a>, void *)</td></tr>
 <tr class="separator:ga2d18b89549db8c8895080b0e012043d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga910ae2589d553fc06f86760736230855"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga910ae2589d553fc06f86760736230855"></a>
 typedef struct <a class="el" href="structsmcp__timer__s.html">smcp_timer_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_timer_t</b></td></tr>
 <tr class="separator:ga910ae2589d553fc06f86760736230855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacdef77b0391388f16a60d3e0d0c32168"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gacdef77b0391388f16a60d3e0d0c32168"></a>
-typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__timer.html#gacdef77b0391388f16a60d3e0d0c32168">cms_t</a></td></tr>
-<tr class="memdesc:gacdef77b0391388f16a60d3e0d0c32168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relative time period, in milliseconds. <br/></td></tr>
-<tr class="separator:gacdef77b0391388f16a60d3e0d0c32168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -120,7 +120,8 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_schedul
 void&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_invalidate_timer</b> (<a class="el" href="structsmcp__s.html">smcp_t</a> self, <a class="el" href="structsmcp__timer__s.html">smcp_timer_t</a> timer)</td></tr>
 <tr class="separator:ga013c5f74f8ca898a0812b6c4a4af2d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1921938ed7750ce322b2edae437da968"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1921938ed7750ce322b2edae437da968"></a>
-<a class="el" href="group__smcp__timer.html#gacdef77b0391388f16a60d3e0d0c32168">cms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_get_timeout</b> (<a class="el" href="structsmcp__s.html">smcp_t</a> self)</td></tr>
+<a class="el" href="group__smcp__timer.html#gacdef77b0391388f16a60d3e0d0c32168">cms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__timer.html#ga1921938ed7750ce322b2edae437da968">smcp_get_timeout</a> (<a class="el" href="structsmcp__s.html">smcp_t</a> self)</td></tr>
+<tr class="memdesc:ga1921938ed7750ce322b2edae437da968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum amount of time that can pass before <a class="el" href="group__smcp-asyncio.html#gaff176cb3513746fde3ed7711649bd6df" title="Processes one event and (if using BSD sockets) processes one packet if available.">smcp_process()</a> must be called again. <br/></td></tr>
 <tr class="separator:ga1921938ed7750ce322b2edae437da968"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga99f0d6781e8d4b1d34732cacc3d35fdf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga99f0d6781e8d4b1d34732cacc3d35fdf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_handle_timers</b> (<a class="el" href="structsmcp__s.html">smcp_t</a> self)</td></tr>
@@ -189,7 +190,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 22:31:27 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 22:42:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

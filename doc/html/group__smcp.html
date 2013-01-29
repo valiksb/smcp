@@ -88,18 +88,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
 Modules</h2></td></tr>
-<tr class="memitem:group__smcp-auth"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-auth.html">Authentication API</a></td></tr>
-<tr class="memdesc:group__smcp-auth"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an experimental interface for handling both internal (i.e. DIGEST-MD5) and external (i.e. DTLS) authentication. It is a work in progress and is subject to change. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__smcp-observable"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-observable.html">Observable API</a></td></tr>
-<tr class="memdesc:group__smcp-observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for creating observable resources. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__smcp__timer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__timer.html">Timer API</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__smcp__trans"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__trans.html">Transaction API</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__smcp-extras"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-extras.html">SMCP Extras</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__smcp-instance"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-instance.html">Instance Methods</a></td></tr>
 <tr class="memdesc:group__smcp-instance"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializing, Configuring, and Releasing the SMCP instance. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,6 +104,18 @@ Modules</h2></td></tr>
 <tr class="memdesc:group__smcp-outbound"><td class="mdescLeft">&#160;</td><td class="mdescRight">These functions are for constructing outbound CoAP messages from an SMCP callback. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__smcp__async"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__async.html">Asynchronous response support API</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__smcp-extras"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-extras.html">SMCP Extras</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__smcp-auth"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-auth.html">Authentication API</a></td></tr>
+<tr class="memdesc:group__smcp-auth"><td class="mdescLeft">&#160;</td><td class="mdescRight">Experimental authentication interface. <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__smcp-observable"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-observable.html">Observable API</a></td></tr>
+<tr class="memdesc:group__smcp-observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for creating observable resources. <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__smcp__timer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__timer.html">Timer API</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__smcp__trans"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp__trans.html">Transaction API</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -138,18 +138,18 @@ typedef smcp_callback_func&#160;</td><td class="memItemRight" valign="bottom"><b
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga385c44f6fb256e5716a2302a5b940388"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br/>
-&#160;&#160;<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a09025d195ac33ade8e831cd962815277">SMCP_STATUS_OK</a> = 0, 
-<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a1a7653f1c3579066c98e61396ad0aabf">SMCP_STATUS_FAILURE</a> = -1, 
-<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a573710603d3b63abb976e09aa245f69e">SMCP_STATUS_INVALID_ARGUMENT</a> = -2, 
-<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a1f8d84d20d318f2109bb847eeaf99482">SMCP_STATUS_UNSUPPORTED_URI</a> = -4, 
+<tr class="memitem:ga06fc87d81c62e9abb8790b6e5713c55b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br/>
+&#160;&#160;<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55ba09025d195ac33ade8e831cd962815277">SMCP_STATUS_OK</a> = 0, 
+<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55ba1a7653f1c3579066c98e61396ad0aabf">SMCP_STATUS_FAILURE</a> = -1, 
+<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55ba573710603d3b63abb976e09aa245f69e">SMCP_STATUS_INVALID_ARGUMENT</a> = -2, 
+<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55ba1f8d84d20d318f2109bb847eeaf99482">SMCP_STATUS_UNSUPPORTED_URI</a> = -4, 
 <br/>
-&#160;&#160;<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a77eb6d805e75a835e775b691e0c2f1a5">SMCP_STATUS_ERRNO</a> = -5, 
-<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a18c25997281208635fcd08f88fb78585">SMCP_STATUS_MALLOC_FAILURE</a> = -6, 
+&#160;&#160;<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55ba77eb6d805e75a835e775b691e0c2f1a5">SMCP_STATUS_ERRNO</a> = -5, 
+<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55ba18c25997281208635fcd08f88fb78585">SMCP_STATUS_MALLOC_FAILURE</a> = -6, 
 <b>SMCP_STATUS_TRANSACTION_INVALIDATED</b> = -7, 
-<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388abcf56059293be77bcfc4d8f4ece5eca9">SMCP_STATUS_TIMEOUT</a> = -8, 
+<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55babcf56059293be77bcfc4d8f4ece5eca9">SMCP_STATUS_TIMEOUT</a> = -8, 
 <br/>
-&#160;&#160;<a class="el" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a3ca5b5ef492f186aec19da31030872d3">SMCP_STATUS_NOT_IMPLEMENTED</a> = -9, 
+&#160;&#160;<a class="el" href="group__smcp.html#gga06fc87d81c62e9abb8790b6e5713c55ba3ca5b5ef492f186aec19da31030872d3">SMCP_STATUS_NOT_IMPLEMENTED</a> = -9, 
 <b>SMCP_STATUS_NOT_FOUND</b> = -10, 
 <b>SMCP_STATUS_H_ERRNO</b> = -11, 
 <b>SMCP_STATUS_RESPONSE_NOT_ALLOWED</b> = -12, 
@@ -173,7 +173,7 @@ Enumerations</h2></td></tr>
 <b>SMCP_STATUS_BAD_PACKET</b> = -26
 <br/>
  }</td></tr>
-<tr class="separator:ga385c44f6fb256e5716a2302a5b940388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ga06fc87d81c62e9abb8790b6e5713c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -195,7 +195,7 @@ __BEGIN_DECLS typedef int&#160;</td><td class="memItemRight" valign="bottom"><b>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a class="anchor" id="ga385c44f6fb256e5716a2302a5b940388"></a>
+<a class="anchor" id="ga06fc87d81c62e9abb8790b6e5713c55b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -205,28 +205,28 @@ __BEGIN_DECLS typedef int&#160;</td><td class="memItemRight" valign="bottom"><b>
       </table>
 </div><div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388a09025d195ac33ade8e831cd962815277"></a>SMCP_STATUS_OK</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba09025d195ac33ade8e831cd962815277"></a>SMCP_STATUS_OK</em>&nbsp;</td><td>
 <p>Success. No error. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388a1a7653f1c3579066c98e61396ad0aabf"></a>SMCP_STATUS_FAILURE</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba1a7653f1c3579066c98e61396ad0aabf"></a>SMCP_STATUS_FAILURE</em>&nbsp;</td><td>
 <p>Unspecified failure. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388a573710603d3b63abb976e09aa245f69e"></a>SMCP_STATUS_INVALID_ARGUMENT</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba573710603d3b63abb976e09aa245f69e"></a>SMCP_STATUS_INVALID_ARGUMENT</em>&nbsp;</td><td>
 <p>An argument or parameter was out of spec. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388a1f8d84d20d318f2109bb847eeaf99482"></a>SMCP_STATUS_UNSUPPORTED_URI</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba1f8d84d20d318f2109bb847eeaf99482"></a>SMCP_STATUS_UNSUPPORTED_URI</em>&nbsp;</td><td>
 <p>The given URI is unsupported. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388a77eb6d805e75a835e775b691e0c2f1a5"></a>SMCP_STATUS_ERRNO</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba77eb6d805e75a835e775b691e0c2f1a5"></a>SMCP_STATUS_ERRNO</em>&nbsp;</td><td>
 <p>Unix socket error. (errno) </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388a18c25997281208635fcd08f88fb78585"></a>SMCP_STATUS_MALLOC_FAILURE</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba18c25997281208635fcd08f88fb78585"></a>SMCP_STATUS_MALLOC_FAILURE</em>&nbsp;</td><td>
 <p>Out of memory. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388abcf56059293be77bcfc4d8f4ece5eca9"></a>SMCP_STATUS_TIMEOUT</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55babcf56059293be77bcfc4d8f4ece5eca9"></a>SMCP_STATUS_TIMEOUT</em>&nbsp;</td><td>
 <p>Operation was taking too long. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga385c44f6fb256e5716a2302a5b940388a3ca5b5ef492f186aec19da31030872d3"></a>SMCP_STATUS_NOT_IMPLEMENTED</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba3ca5b5ef492f186aec19da31030872d3"></a>SMCP_STATUS_NOT_IMPLEMENTED</em>&nbsp;</td><td>
 <p>Feature hasn't been implemented. </p>
 </td></tr>
 </table>
@@ -238,7 +238,7 @@ __BEGIN_DECLS typedef int&#160;</td><td class="memItemRight" valign="bottom"><b>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 22:31:27 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 22:42:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

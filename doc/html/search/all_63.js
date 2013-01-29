@@ -4,7 +4,7 @@ var searchData=
   ['cms_5ft',['cms_t',['../group__smcp__timer.html#gacdef77b0391388f16a60d3e0d0c32168',1,'smcp.h']]],
   ['coap_20functions_20and_20constants',['CoAP Functions and Constants',['../group__coap.html',1,'']]],
   ['coap_2eh',['coap.h',['../coap_8h.html',1,'']]],
-  ['coap_5fcontent_5ftype_5fapplication_5flink_5fformat',['COAP_CONTENT_TYPE_APPLICATION_LINK_FORMAT',['../group__coap.html#ggadc29c2ff13d900c2f185ee95427fb06ca39b2d96bbd0f8da3fd7bfb0e18cb4685',1,'coap.h']]],
+  ['coap_5fcontent_5ftype_5fapplication_5flink_5fformat',['COAP_CONTENT_TYPE_APPLICATION_LINK_FORMAT',['../group__coap.html#gga726ca809ffd3d67ab4b8476646f26635a39b2d96bbd0f8da3fd7bfb0e18cb4685',1,'coap.h']]],
   ['coap_5fdefault_5fproxy_5fport',['COAP_DEFAULT_PROXY_PORT',['../group__coap.html#ga872406033c95cd23be14aefe0f47ae6d',1,'coap.h']]],
   ['coap_5fdefault_5fproxy_5ftls_5fport',['COAP_DEFAULT_PROXY_TLS_PORT',['../group__coap.html#ga87d2f27f99ba53a0e7bcc8ae584afba1',1,'coap.h']]],
   ['coap_5fdefault_5ftlsport',['COAP_DEFAULT_TLSPORT',['../group__coap.html#ga02d0db4092ec4ffffa37e16ad61e7c42',1,'coap.h']]],
