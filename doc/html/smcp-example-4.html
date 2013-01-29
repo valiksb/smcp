@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="fragment"><div class="line"></div>
 <div class="line"><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="smcp_8h.html" title="Primary header.">smcp/smcp.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="smcp-node_8h.html" title="Node router functions.">smcp/smcp-node.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="smcp-node-router_8h.html" title="Node router functions.">smcp/smcp-node-router.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="smcp-observable_8h.html">smcp/smcp-observable.h</a>&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="preprocessor">#define ARBITRARY_OBSERVABLE_KEY            (23)</span></div>
@@ -136,7 +136,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <span class="keywordflow">while</span>(1) {</div>
 <div class="line">        <a class="code" href="group__smcp-asyncio.html#gaff176cb3513746fde3ed7711649bd6df" title="Processes one event and (if using BSD sockets) processes one packet if available.">smcp_process</a>(instance, (next_trigger-time(NULL))*MSEC_PER_SEC);</div>
 <div class="line">        <span class="keywordflow">if</span>((next_trigger-time(NULL))&lt;=0) {</div>
-<div class="line">            <a class="code" href="group__smcp-observable.html#ga1d947cfa6ba4923b2447018d5605bd5d" title="Triggers an observable resource to send an update to its observers.">smcp_observable_trigger</a>(&amp;observable,ARBITRARY_OBSERVABLE_KEY);</div>
+<div class="line">            <a class="code" href="group__smcp-observable.html#gab0f31dccd9946a92759300842a756795" title="Triggers an observable resource to send an update to its observers.">smcp_observable_trigger</a>(&amp;observable,ARBITRARY_OBSERVABLE_KEY,0);</div>
 <div class="line">            next_trigger = time(NULL)+TRIGGER_FREQUENCY;</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
@@ -180,7 +180,7 @@ Hello world!
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 21:35:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 22:31:27 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

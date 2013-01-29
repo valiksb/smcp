@@ -127,6 +127,8 @@ $ sudo make install
 <h2>Configurability</h2>
 <p>One of the goals of SMCP is to implent a full-featured CoAP library, but most embedded applications don't need all of these capabilities. Because of this, SMCP is designed so that you can individually enable or disable features depending on your needs (See <code><a class="el" href="smcp-opts_8h.html" title="SMCP Build Options.">src/smcp/smcp-opts.h</a></code>).</p>
 <p>For example, SMCP has the ability to have more than once instance, but embedded platforms will never need more than one. Passing around a reference to a global variable that will never change is wasteful, so when compiled with <code>SMCP_EMBEDDED</code> turned on, we transparently (via some preprocessor magic) ignore the reference to the SMCP instance from all of the functions that take it. This makes it easy to use the same codebase for both embedded and non-embedded applications. There are other configuration options for doing things like limiting <code>malloc()</code> usage, avoiding use of <code>printf()</code> (and variants), enabling/disabling observing, etc.</p>
+<h2>API Documentation</h2>
+<p>You can find an online version of the API documentation here: <a href="http://darconeous.github.com/smcp/doc/html/">http://darconeous.github.com/smcp/doc/html/</a></p>
 <h2>SMCPCTL</h2>
 <p><code>smcpctl</code> is a command-line interface for browsing, observing, and interacting with CoAP devices. It is, for the most part, self- documenting: just type in <code>smcpctl help</code>. You can run individual commands directly from the command line when invoking <code>smcpctl</code> or you can invoke with no arguments and you will enter the smcpctl shell (CLI). The shell environment allows you to use familiar unix commands like <code>ls</code>, <code>cd</code>, and <code>cat</code>. The CLI supports quoting and tab-completion of resource names, which is incredibly handy.</p>
 <p>Here are a few examples of how you can use it:</p>
@@ -154,7 +156,7 @@ $ sudo make install
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 21:35:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 22:31:27 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>
