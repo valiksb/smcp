@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>SMCP: SMCP — README</title>
+<title>smcp: SMCP — README</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">SMCP
+   <div id="projectname">smcp
    </div>
   </td>
  </tr>
@@ -63,7 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,9 +83,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Supports draft-ietf-core-coap-13.</li>
 <li>Fully asynchronous I/O.</li>
 <li>Supports both BSD sockets and <a href="http://en.wikipedia.org/wiki/UIP_(micro_IP%29">UIP</a>.</li>
-<li>Supports sending and receiving asynchronous CoAP responses.</li>
-<li>Supports observing resources and offering observable resources.</li>
-<li>Supports retransmission of confirmable transactions.</li>
+<li>Sending and receiving asynchronous CoAP responses.</li>
+<li>Observing resources and offering observable resources.</li>
+<li>Retransmission of confirmable transactions.</li>
 <li><code>smcpctl</code> - a powerful command line tool for browsing and configuring CoAP nodes.</li>
 </ul>
 <p>Initial focus is on correctness of implementation. Stack usage and other performance optimizations will become the focus later on.</p>
@@ -125,7 +125,7 @@ $ sudo make install
 </ul>
 <p>The Contiki version of the plugtest uses the last two files. You can find the Contiki version at <code>contiki-src/examples/smcp-plugtest/</code>.</p>
 <h2>Configurability</h2>
-<p>One of the goals of SMCP is to implent a full-featured CoAP library, but most embedded applications don't need all of these capabilities. Because of this, SMCP is designed so that you can individually enable or disable features depending on your needs (See <code><a class="el" href="smcp-opts_8h_source.html">src/smcp/smcp-opts.h</a></code>).</p>
+<p>One of the goals of SMCP is to implent a full-featured CoAP library, but most embedded applications don't need all of these capabilities. Because of this, SMCP is designed so that you can individually enable or disable features depending on your needs (See <code><a class="el" href="smcp-opts_8h.html" title="SMCP Build Options.">src/smcp/smcp-opts.h</a></code>).</p>
 <p>For example, SMCP has the ability to have more than once instance, but embedded platforms will never need more than one. Passing around a reference to a global variable that will never change is wasteful, so when compiled with <code>SMCP_EMBEDDED</code> turned on, we transparently (via some preprocessor magic) ignore the reference to the SMCP instance from all of the functions that take it. This makes it easy to use the same codebase for both embedded and non-embedded applications. There are other configuration options for doing things like limiting <code>malloc()</code> usage, avoiding use of <code>printf()</code> (and variants), enabling/disabling observing, etc.</p>
 <h2>SMCPCTL</h2>
 <p><code>smcpctl</code> is a command-line interface for browsing, observing, and interacting with CoAP devices. It is, for the most part, self- documenting: just type in <code>smcpctl help</code>. You can run individual commands directly from the command line when invoking <code>smcpctl</code> or you can invoke with no arguments and you will enter the smcpctl shell (CLI). The shell environment allows you to use familiar unix commands like <code>ls</code>, <code>cd</code>, and <code>cat</code>. The CLI supports quoting and tab-completion of resource names, which is incredibly handy.</p>
@@ -154,7 +154,7 @@ $ sudo make install
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 10:16:08 for SMCP by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 21:35:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

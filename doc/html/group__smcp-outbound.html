@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>SMCP: Outbound Message Composing API</title>
+<title>smcp: Outbound Message Composing API</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">SMCP
+   <div id="projectname">smcp
    </div>
   </td>
  </tr>
@@ -64,7 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -115,10 +115,10 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-outbound.html#gaa2458c11a297e2e0297caf612794ed12">smcp_outbound_set_code</a> (coap_code_t code)</td></tr>
 <tr class="memdesc:gaa2458c11a297e2e0297caf612794ed12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the code on the current outbound packet. <br/></td></tr>
 <tr class="separator:gaa2458c11a297e2e0297caf612794ed12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3fea67288f9f1c013c96aeeb2ec5bcd2"><td class="memItemLeft" align="right" valign="top">smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-outbound.html#ga3fea67288f9f1c013c96aeeb2ec5bcd2">smcp_outbound_add_option</a> (<a class="el" href="coap_8h.html#a7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a> key, const char *value, size_t len)</td></tr>
+<tr class="memitem:ga3fea67288f9f1c013c96aeeb2ec5bcd2"><td class="memItemLeft" align="right" valign="top">smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-outbound.html#ga3fea67288f9f1c013c96aeeb2ec5bcd2">smcp_outbound_add_option</a> (<a class="el" href="group__coap.html#ga7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a> key, const char *value, size_t len)</td></tr>
 <tr class="separator:ga3fea67288f9f1c013c96aeeb2ec5bcd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga88e5ae6c90d5e544f1cabbc9ffdc4b0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga88e5ae6c90d5e544f1cabbc9ffdc4b0f"></a>
-smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-outbound.html#ga88e5ae6c90d5e544f1cabbc9ffdc4b0f">smcp_outbound_add_option_uint</a> (<a class="el" href="coap_8h.html#a7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a> key, uint32_t value)</td></tr>
+smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-outbound.html#ga88e5ae6c90d5e544f1cabbc9ffdc4b0f">smcp_outbound_add_option_uint</a> (<a class="el" href="group__coap.html#ga7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a> key, uint32_t value)</td></tr>
 <tr class="memdesc:ga88e5ae6c90d5e544f1cabbc9ffdc4b0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an option with a CoAP-encoded unsigned integer value. <br/></td></tr>
 <tr class="separator:ga88e5ae6c90d5e544f1cabbc9ffdc4b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0c503d24928bf3e61c5f368860b4d479"><td class="memItemLeft" align="right" valign="top">smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-outbound.html#ga0c503d24928bf3e61c5f368860b4d479">smcp_outbound_set_destaddr</a> (struct sockaddr *sockaddr, socklen_t socklen)</td></tr>
@@ -177,7 +177,7 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
         <tr>
           <td class="memname">smcp_status_t smcp_outbound_add_option </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="coap_8h.html#a7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__coap.html#ga7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a>&#160;</td>
           <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
@@ -201,8 +201,6 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 </div><div class="memdoc">
 <p>Note that options MUST be added in order! OK, that's a lie, but it's much faster if done this way! </p>
 
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00369">369</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="gac6c831c7e469ee9bd02804d3de4c2845"></a>
@@ -222,8 +220,6 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 <p>Sets up the outbound packet as a response to the current inbound packet. </p>
 <p>This function automatically makes sure that the destination address, msg_id, and token are properly set up. </p>
 
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00151">151</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ga8c4c307a6ffd61df44e6c7aab8602384"></a>
@@ -240,8 +236,6 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
       </table>
 </div><div class="memdoc">
 <p>After the following function is called you cannot add any more options without loosing the content. </p>
-
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00727">727</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
 
 </div>
 </div>
@@ -260,8 +254,6 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 
 <p>Sends the outbound packet. </p>
 <p>After calling this function, you are done for this callback. You may not call any other smcp_outbound_* functions. You may only send one outbound packet per callback. </p>
-
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00747">747</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
 
 </div>
 </div>
@@ -292,8 +284,6 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 <p>Sets the destination address and port. </p>
 <p>Not necessary if you called <a class="el" href="group__smcp-outbound.html#gac6c831c7e469ee9bd02804d3de4c2845" title="Sets up the outbound packet as a response to the current inbound packet.">smcp_outbound_begin_response()</a>. </p>
 
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00228">228</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ga7546f56e77301ec1cf2bd50435d5f4be"></a>
@@ -312,8 +302,6 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 
 <p>Sets the msg_id on the outbound packet. </p>
 <dl class="section note"><dt>Note</dt><dd>In most cases msg_ids are handled automatically. You do not normally need to call this. </dd></dl>
-
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00191">191</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
 
 </div>
 </div>
@@ -344,8 +332,6 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 <p>Sets the token on the outbound packet. </p>
 <dl class="section note"><dt>Note</dt><dd>In most cases tokens are handled automatically. You do not normally need to call this. </dd></dl>
 
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00206">206</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="gae0dbf4270e9ee53ce3f8756977f480bf"></a>
@@ -375,14 +361,12 @@ smcp_status_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_outboun
 <p>Sets the destination URI for the outbound packet. </p>
 <p>If the URL is not directly reachable and a proxy URL has been defined, this function will automatically use the proxy. </p>
 
-<p>Definition at line <a class="el" href="smcp-outbound_8c_source.html#l00554">554</a> of file <a class="el" href="smcp-outbound_8c_source.html">smcp-outbound.c</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 10:16:09 for SMCP by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 21:35:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

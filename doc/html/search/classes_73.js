@@ -9,7 +9,6 @@ var searchData=
   ['smcp_5fobservable_5fs',['smcp_observable_s',['../structsmcp__observable__s.html',1,'']]],
   ['smcp_5fobserver_5fs',['smcp_observer_s',['../structsmcp__observer__s.html',1,'']]],
   ['smcp_5fs',['smcp_s',['../structsmcp__s.html',1,'']]],
-  ['smcp_5ftimer_5fnode_5fs',['smcp_timer_node_s',['../structsmcp__timer__node__s.html',1,'']]],
   ['smcp_5ftimer_5fs',['smcp_timer_s',['../structsmcp__timer__s.html',1,'']]],
   ['smcp_5ftransaction_5fs',['smcp_transaction_s',['../structsmcp__transaction__s.html',1,'']]],
   ['smcp_5fvariable_5fnode_5fs',['smcp_variable_node_s',['../structsmcp__variable__node__s.html',1,'']]],

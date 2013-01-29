@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>SMCP: example-1.c: Responding to a request</title>
+<title>smcp: example-1.c: Responding to a request</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">SMCP
+   <div id="projectname">smcp
    </div>
   </td>
  </tr>
@@ -63,7 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -75,16 +75,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title"><a class="el" href="example-1_8c_source.html">example-1.c</a>: Responding to a request </div>  </div>
+<div class="title">example-1.c: Responding to a request </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><code><a class="el" href="example-1_8c_source.html">src/examples/example-1.c</a></code></p>
-<p>This example shows how to respond to a request.</p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__smcp-instance.html">Instance Methods</a>, <a class="el" href="group__smcp-inbound.html">Inbound Message Parsing API</a>, <a class="el" href="group__smcp-outbound.html">Outbound Message Composing API</a> </dd></dl>
+<div class="textblock"><p>This simple example shows how to respond to a request.</p>
+<div class="fragment"><div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="smcp_8h.html" title="Primary header.">smcp/smcp.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">static</span> smcp_status_t</div>
+<div class="line">request_handler(<span class="keywordtype">void</span>* context) {</div>
+<div class="line">    <span class="comment">/* This request handler will respond to every GET request with &quot;Hello world!&quot;.</span></div>
+<div class="line"><span class="comment">     * It isn&#39;t usually a good idea to (almost) completely ignore the actual</span></div>
+<div class="line"><span class="comment">     * request, but since this is just an example we can get away with it.</span></div>
+<div class="line"><span class="comment">     * We do more processing on the request in the other examples. */</span></div>
+<div class="line"></div>
+<div class="line">    printf(<span class="stringliteral">&quot;Got a request!\n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// Only handle GET requests for now. Returning SMCP_STATUS_NOT_IMPLEMENTED</span></div>
+<div class="line">    <span class="comment">// here without sending a response will cause us to automatically</span></div>
+<div class="line">    <span class="comment">// send a METHOD_NOT_IMPLEMENTED response.</span></div>
+<div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__smcp-inbound.html#gaf02d824ad8c2ba0b39c48159339deffe" title="Convenience macro for getting the code of the inbound packet.">smcp_inbound_get_code</a>() != COAP_METHOD_GET)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a3ca5b5ef492f186aec19da31030872d3" title="Feature hasn&#39;t been implemented.">SMCP_STATUS_NOT_IMPLEMENTED</a>;</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// Begin describing the response message. (2.05 CONTENT,</span></div>
+<div class="line">    <span class="comment">// in this case)</span></div>
+<div class="line">    <a class="code" href="group__smcp-outbound.html#gac6c831c7e469ee9bd02804d3de4c2845" title="Sets up the outbound packet as a response to the current inbound packet.">smcp_outbound_begin_response</a>(COAP_RESULT_205_CONTENT);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// Add an option describing the content type as plaintest.</span></div>
+<div class="line">    <a class="code" href="group__smcp-outbound.html#ga88e5ae6c90d5e544f1cabbc9ffdc4b0f" title="Adds an option with a CoAP-encoded unsigned integer value.">smcp_outbound_add_option_uint</a>(</div>
+<div class="line">        COAP_OPTION_CONTENT_TYPE,</div>
+<div class="line">        COAP_CONTENT_TYPE_TEXT_PLAIN</div>
+<div class="line">    );</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// Set the content of our response to be &quot;Hello world!&quot;.</span></div>
+<div class="line">    smcp_outbound_append_content(<span class="stringliteral">&quot;Hello world!&quot;</span>, SMCP_CSTR_LEN);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// Send the response we hae created, passing the return value</span></div>
+<div class="line">    <span class="comment">// to our caller.</span></div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="group__smcp-outbound.html#gab686ebc0b9e7911f490ec07224fada1d" title="Sends the outbound packet.">smcp_outbound_send</a>();</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span></div>
+<div class="line">main(<span class="keywordtype">void</span>) {</div>
+<div class="line">    <span class="comment">// Create our instance on the default CoAP port. If the port</span></div>
+<div class="line">    <span class="comment">// is already in use, we will pick the next available port number.</span></div>
+<div class="line">    <a class="code" href="structsmcp__s.html">smcp_t</a> instance = <a class="code" href="group__smcp-instance.html#ga301c2ce1d7c9f559da8d840e7752b7e4" title="Allocates and initializes an SMCP instance.">smcp_create</a>(0);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span>(!instance) {</div>
+<div class="line">        perror(<span class="stringliteral">&quot;Unable to create SMCP instance&quot;</span>);</div>
+<div class="line">        abort();</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    printf(<span class="stringliteral">&quot;Listening on port %d\n&quot;</span>,<a class="code" href="group__smcp-instance.html#ga87f96a89e62f04d8487506a6242a9ae4" title="Returns the current listening port of the instance in host order.">smcp_get_port</a>(instance));</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// SMCP will always respond to requests with METHOD_NOT_IMPLEMENTED</span></div>
+<div class="line">    <span class="comment">// unless a request handler is set. Unless your program is only</span></div>
+<div class="line">    <span class="comment">// making CoAP requests, you&#39;ll need a line like the following</span></div>
+<div class="line">    <span class="comment">// in your program. The request handler may either handle the</span></div>
+<div class="line">    <span class="comment">// request itself or route the request to the appropriate handler.</span></div>
+<div class="line">    <a class="code" href="group__smcp-instance.html#gaa3d4c57cf7c1eb9232d29d378d0cece8" title="Sets the default request handler.">smcp_set_default_request_handler</a>(instance, &amp;request_handler, NULL);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// Loop forever. This is the most simple kind of main loop you</span></div>
+<div class="line">    <span class="comment">// can haave with SMCP. It is appropriate for simple CoAP servers</span></div>
+<div class="line">    <span class="comment">// and cliens which do not need asynchronous I/O.</span></div>
+<div class="line">    <span class="keywordflow">while</span>(1)</div>
+<div class="line">        <a class="code" href="group__smcp-asyncio.html#gaff176cb3513746fde3ed7711649bd6df" title="Processes one event and (if using BSD sockets) processes one packet if available.">smcp_process</a>(instance, <a class="code" href="group__smcp__timer.html#ga88081eb18921cba6a38b5bf7169f96ff" title="Special cms value representing the distant future.">CMS_DISTANT_FUTURE</a>);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// We won&#39;t actually get to this line with the above loop, but it</span></div>
+<div class="line">    <span class="comment">// is always a good idea to clean up when you are done. If you</span></div>
+<div class="line">    <span class="comment">// provide a way to gracefully exit from your own main loop, you</span></div>
+<div class="line">    <span class="comment">// can tear down the SMCP instance using the following command.</span></div>
+<div class="line">    <a class="code" href="group__smcp-instance.html#ga05fff2d9d274f6cc8ca632fb25fd58ed" title="Releases an SMCP instance, closing all ports and ending all transactions.">smcp_release</a>(instance);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__smcp-instance.html">Instance Methods</a>, <a class="el" href="group__smcp-inbound.html">Inbound Message Parsing API</a>, <a class="el" href="group__smcp-outbound.html">Outbound Message Composing API</a> </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 10:16:08 for SMCP by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 21:35:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

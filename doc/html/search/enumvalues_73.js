@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['smcp_5fcontent_5ftype_5fapplication_5fform_5furlencoded',['SMCP_CONTENT_TYPE_APPLICATION_FORM_URLENCODED',['../coap_8h.html#adc29c2ff13d900c2f185ee95427fb06caabc9145bf6b23450c378671e1bea7f7b',1,'coap.h']]],
-  ['smcp_5foption_5fcseq',['SMCP_OPTION_CSEQ',['../coap_8h.html#a7fdbb66204b4278300589317c30f88e4a4f26f15b69806f9dfd3a2b765b8511aa',1,'coap.h']]],
-  ['smcp_5foption_5forigin',['SMCP_OPTION_ORIGIN',['../coap_8h.html#a7fdbb66204b4278300589317c30f88e4a13c28d8c81f3744c3d93f1d25bd7250d',1,'coap.h']]],
+  ['smcp_5fcontent_5ftype_5fapplication_5fform_5furlencoded',['SMCP_CONTENT_TYPE_APPLICATION_FORM_URLENCODED',['../group__coap.html#ggadc29c2ff13d900c2f185ee95427fb06caabc9145bf6b23450c378671e1bea7f7b',1,'coap.h']]],
   ['smcp_5fstatus_5ferrno',['SMCP_STATUS_ERRNO',['../group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a77eb6d805e75a835e775b691e0c2f1a5',1,'smcp.h']]],
   ['smcp_5fstatus_5ffailure',['SMCP_STATUS_FAILURE',['../group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a1a7653f1c3579066c98e61396ad0aabf',1,'smcp.h']]],
   ['smcp_5fstatus_5finvalid_5fargument',['SMCP_STATUS_INVALID_ARGUMENT',['../group__smcp.html#gga385c44f6fb256e5716a2302a5b940388a573710603d3b63abb976e09aa245f69e',1,'smcp.h']]],

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>SMCP: Inbound Message Parsing API</title>
+<title>smcp: Inbound Message Parsing API</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">SMCP
+   <div id="projectname">smcp
    </div>
   </td>
  </tr>
@@ -64,7 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -144,11 +144,11 @@ struct sockaddr *&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_inb
 socklen_t&#160;</td><td class="memItemRight" valign="bottom"><b>smcp_inbound_get_socklen</b> ()</td></tr>
 <tr class="separator:ga565559d654ec41d0052b874269d41ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0b0a73953353d3e8666b0b4bec832030"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0b0a73953353d3e8666b0b4bec832030"></a>
-<a class="el" href="coap_8h.html#a7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-inbound.html#ga0b0a73953353d3e8666b0b4bec832030">smcp_inbound_next_option</a> (const uint8_t **ptr, size_t *len)</td></tr>
+<a class="el" href="group__coap.html#ga7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-inbound.html#ga0b0a73953353d3e8666b0b4bec832030">smcp_inbound_next_option</a> (const uint8_t **ptr, size_t *len)</td></tr>
 <tr class="memdesc:ga0b0a73953353d3e8666b0b4bec832030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the value and type of the next option in the header and move to the next header. <br/></td></tr>
 <tr class="separator:ga0b0a73953353d3e8666b0b4bec832030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaba3e79607b1af4c1742c2614868c3b7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaba3e79607b1af4c1742c2614868c3b7d"></a>
-<a class="el" href="coap_8h.html#a7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-inbound.html#gaba3e79607b1af4c1742c2614868c3b7d">smcp_inbound_peek_option</a> (const uint8_t **ptr, size_t *len)</td></tr>
+<a class="el" href="group__coap.html#ga7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-inbound.html#gaba3e79607b1af4c1742c2614868c3b7d">smcp_inbound_peek_option</a> (const uint8_t **ptr, size_t *len)</td></tr>
 <tr class="memdesc:gaba3e79607b1af4c1742c2614868c3b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the value and type of the next option in the header, WITHOUT moving to the next header. <br/></td></tr>
 <tr class="separator:gaba3e79607b1af4c1742c2614868c3b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4a22b4d91d5f90fe20d6c123a4388a54"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4a22b4d91d5f90fe20d6c123a4388a54"></a>
@@ -156,7 +156,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memdesc:ga4a22b4d91d5f90fe20d6c123a4388a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the option pointer to the start of the options. <br/></td></tr>
 <tr class="separator:ga4a22b4d91d5f90fe20d6c123a4388a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga45f7c5b17f9db7e278a5143b46822327"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga45f7c5b17f9db7e278a5143b46822327"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-inbound.html#ga45f7c5b17f9db7e278a5143b46822327">smcp_inbound_option_strequal</a> (<a class="el" href="coap_8h.html#a7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a> key, const char *str)</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__smcp-inbound.html#ga45f7c5b17f9db7e278a5143b46822327">smcp_inbound_option_strequal</a> (<a class="el" href="group__coap.html#ga7fdbb66204b4278300589317c30f88e4">coap_option_key_t</a> key, const char *str)</td></tr>
 <tr class="memdesc:ga45f7c5b17f9db7e278a5143b46822327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the key and value of the current option to specific c-string values. <br/></td></tr>
 <tr class="separator:ga45f7c5b17f9db7e278a5143b46822327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0f5956a3087ee7729da6d1eba93ec9a9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0f5956a3087ee7729da6d1eba93ec9a9"></a>
@@ -184,14 +184,12 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <p>Returns a pointer to the start of the inbound packet's content. </p>
 <p>Guaranteed to be NUL-terminated </p>
 
-<p>Definition at line <a class="el" href="smcp_8c_source.html#l00483">483</a> of file <a class="el" href="smcp_8c_source.html">smcp.c</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 10:16:08 for SMCP by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 28 2013 21:35:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>
