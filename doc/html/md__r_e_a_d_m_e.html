@@ -97,9 +97,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 $ make CONTIKI=~/Projects/contiki TARGET=minimal-net
 </pre><h2>Installing via Homebrew on OS X</h2>
 <p>To get the "latest-release": </p>
-<pre class="fragment">$ brew install https://raw.github.com/darconeous/smcp/formula/smcp.rb
+<pre class="fragment">$ brew tap darconeous/embedded
+$ brew install smcp
 </pre><p>To get the bleeding-edge release: </p>
-<pre class="fragment">$ brew install https://raw.github.com/darconeous/smcp/formula/smcp.rb --HEAD
+<pre class="fragment">$ brew tap darconeous/embedded
+$ brew install smcp --HEAD
 </pre><p>Node: This is mostly for people who just want to use <code>smcpctl</code> (described below). If you want to compile against SMCP, you'll currently need to grab the sources and build against them directly.</p>
 <h2>Getting, building, and installing via Git</h2>
 <p>First: </p>
@@ -156,7 +158,7 @@ $ sudo make install
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 22:42:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 13 2013 21:43:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

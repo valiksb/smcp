@@ -363,22 +363,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* coap_code_to_cstr(<span class="keywordtype">int</span> x);</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> coap_verify_packet(<span class="keyword">const</span> <span class="keywordtype">char</span>* packet,<span class="keywordtype">size_t</span> packet_size);</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="preprocessor">#if !CONTIKI</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> coap_dump_header(</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    FILE*           outstream,</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>*     prefix,</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structcoap__header__s.html">coap_header_s</a>* header,</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordtype">size_t</span> packet_size</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;);</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="preprocessor">#endif // __SMCP_COAP_H__</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;uint32_t coap_decode_uint32(<span class="keyword">const</span> uint8_t* value, uint8_t value_len);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor">#if !CONTIKI</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> coap_dump_header(</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    FILE*           outstream,</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>*     prefix,</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structcoap__header__s.html">coap_header_s</a>* header,</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordtype">size_t</span> packet_size</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;);</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="preprocessor">#endif // __SMCP_COAP_H__</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 22:42:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 13 2013 21:43:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

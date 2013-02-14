@@ -380,79 +380,81 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;</div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_append_content(<span class="keyword">const</span> <span class="keywordtype">char</span>* value,<span class="keywordtype">size_t</span> len);</div>
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_content_formatted(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, ...);</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="preprocessor">#define smcp_outbound_set_content_formatted_const(fmt,...)  \</span></div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="preprocessor">    smcp_outbound_set_content_formatted(fmt,__VA_ARGS__)</span></div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#gab686ebc0b9e7911f490ec07224fada1d" title="Sends the outbound packet.">smcp_outbound_send</a>();</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__smcp-outbound.html#gad89f395b1005afdb35cba2733559a9e9" title="Convenience function to simply drop a packet.">smcp_outbound_drop</a>();</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="preprocessor">#if !SMCP_AVOID_PRINTF</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> smcp_status_t smcp_outbound_set_content_formatted(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, ...);</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="preprocessor">#define smcp_outbound_set_content_formatted_const(fmt,...)  \</span></div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="preprocessor">    smcp_outbound_set_content_formatted(fmt,__VA_ARGS__)</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#gab686ebc0b9e7911f490ec07224fada1d" title="Sends the outbound packet.">smcp_outbound_send</a>();</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__smcp-outbound.html#gad89f395b1005afdb35cba2733559a9e9" title="Convenience function to simply drop a packet.">smcp_outbound_drop</a>();</div>
 <div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#ga7546f56e77301ec1cf2bd50435d5f4be" title="Sets the msg_id on the outbound packet.">smcp_outbound_set_msg_id</a>(coap_msg_id_t tid);</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#ga7546f56e77301ec1cf2bd50435d5f4be" title="Sets the msg_id on the outbound packet.">smcp_outbound_set_msg_id</a>(coap_msg_id_t tid);</div>
 <div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#gadff17d1818ac71110e499648f46c7f45" title="Sets the token on the outbound packet.">smcp_outbound_set_token</a>(<span class="keyword">const</span> uint8_t *token,uint8_t token_length);</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#gaa1e2ce0cb1050eb7f38e7f8147e77c40" title="Useful for indicating errors.">smcp_outbound_quick_response</a>(coap_code_t code, <span class="keyword">const</span> <span class="keywordtype">char</span>* body);</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_var_content_int(<span class="keywordtype">int</span> v) SMCP_DEPRECATED;</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_var_content_unsigned_int(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> v) SMCP_DEPRECATED;</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_var_content_unsigned_long_int(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> v) SMCP_DEPRECATED;</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="preprocessor">#pragma mark -</span></div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma mark Asynchronous response support API</span></div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="preprocessor">#define SMCP_ASYNC_RESPONSE_FLAG_DONT_ACK       (1&lt;&lt;0)</span></div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00508"></a><span class="lineno"><a class="code" href="structsmcp__async__response__s.html">  508</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a> {</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="preprocessor">#if SMCP_USE_BSD_SOCKETS</span></div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="preprocessor"></span>    <span class="keyword">struct </span>sockaddr_in6     saddr;</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;    socklen_t               socklen;</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="preprocessor">#elif CONTIKI</span></div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="preprocessor"></span>    uip_ipaddr_t            toaddr;</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    uint16_t                toport; <span class="comment">// Always in network order.</span></div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keyword">struct </span><a class="code" href="structcoap__header__s.html">coap_header_s</a> header;</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        uint8_t bytes[80];</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;    } request;</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    <span class="keywordtype">size_t</span> request_len;</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;};</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_t</a>;</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#gadff17d1818ac71110e499648f46c7f45" title="Sets the token on the outbound packet.">smcp_outbound_set_token</a>(<span class="keyword">const</span> uint8_t *token,uint8_t token_length);</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="keyword">extern</span> smcp_status_t <a class="code" href="group__smcp-outbound.html#gaa1e2ce0cb1050eb7f38e7f8147e77c40" title="Useful for indicating errors.">smcp_outbound_quick_response</a>(coap_code_t code, <span class="keyword">const</span> <span class="keywordtype">char</span>* body);</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_var_content_int(<span class="keywordtype">int</span> v) SMCP_DEPRECATED;</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_var_content_unsigned_int(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> v) SMCP_DEPRECATED;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_var_content_unsigned_long_int(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> v) SMCP_DEPRECATED;</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="preprocessor">#pragma mark -</span></div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma mark Asynchronous response support API</span></div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="preprocessor">#define SMCP_ASYNC_RESPONSE_FLAG_DONT_ACK       (1&lt;&lt;0)</span></div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00510"></a><span class="lineno"><a class="code" href="structsmcp__async__response__s.html">  510</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a> {</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;<span class="preprocessor">#if SMCP_USE_BSD_SOCKETS</span></div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="preprocessor"></span>    <span class="keyword">struct </span>sockaddr_in6     saddr;</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    socklen_t               socklen;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;<span class="preprocessor">#elif CONTIKI</span></div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="preprocessor"></span>    uip_ipaddr_t            toaddr;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    uint16_t                toport; <span class="comment">// Always in network order.</span></div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        <span class="keyword">struct </span><a class="code" href="structcoap__header__s.html">coap_header_s</a> header;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;        uint8_t bytes[80];</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    } request;</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    <span class="keywordtype">size_t</span> request_len;</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;};</div>
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> smcp_inbound_is_related_to_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x);</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_t</a>;</div>
 <div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_start_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x,<span class="keywordtype">int</span> flags);</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> smcp_inbound_is_related_to_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x);</div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;</div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_finish_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x);</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_start_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x,<span class="keywordtype">int</span> flags);</div>
 <div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x);</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_finish_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x);</div>
 <div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="preprocessor">#pragma mark -</span></div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma mark Helper Functions</span></div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="keyword">extern</span> coap_msg_id_t smcp_get_next_msg_id(smcp_t <span class="keyword">self</span>);</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> smcp_convert_status_to_result_code(smcp_status_t status);</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;<span class="keyword">extern</span> smcp_status_t smcp_outbound_set_async_response(<span class="keyword">struct</span> <a class="code" href="structsmcp__async__response__s.html">smcp_async_response_s</a>* x);</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="preprocessor">#pragma mark -</span></div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma mark Helper Functions</span></div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="keyword">extern</span> coap_msg_id_t smcp_get_next_msg_id(smcp_t <span class="keyword">self</span>);</div>
 <div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* smcp_status_to_cstr(smcp_status_t x);</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> smcp_convert_status_to_result_code(smcp_status_t status);</div>
 <div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;</div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* smcp_status_to_cstr(smcp_status_t x);</div>
 <div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;</div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="smcp-transaction_8h.html" title="Transaction functions.">smcp-transaction.h</a>&quot;</span></div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="smcp-observable_8h.html">smcp-observable.h</a>&quot;</span></div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="preprocessor">#include &quot;smcp-helpers.h&quot;</span></div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="smcp-transaction_8h.html" title="Transaction functions.">smcp-transaction.h</a>&quot;</span></div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="smcp-observable_8h.html">smcp-observable.h</a>&quot;</span></div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="preprocessor">#include &quot;smcp-helpers.h&quot;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 22:42:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 13 2013 21:43:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

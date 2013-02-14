@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>smcp: coap_header_s Struct Reference</title>
+<title>smcp: Version 0.6.1</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -36,9 +36,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -58,13 +58,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
-    </ul>
-  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -81,39 +74,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structcoap__header__s-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">coap_header_s Struct Reference<div class="ingroups"><a class="el" href="group__coap.html">CoAP Functions and Constants</a></div></div>  </div>
+<div class="title">Version 0.6.1 </div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a9a554f08d1f40669ca990d0dfa0020d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a554f08d1f40669ca990d0dfa0020d9"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>token_len</b>:4</td></tr>
-<tr class="separator:a9a554f08d1f40669ca990d0dfa0020d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5cde20c203da9af4b9d2b77a22cce71"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5cde20c203da9af4b9d2b77a22cce71"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>tt</b>:2</td></tr>
-<tr class="separator:af5cde20c203da9af4b9d2b77a22cce71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73cc80d03be859c4b61932a41d1a1b18"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73cc80d03be859c4b61932a41d1a1b18"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>version</b>:2</td></tr>
-<tr class="separator:a73cc80d03be859c4b61932a41d1a1b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad706c2ee158514b95358b0c3e6805fe4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad706c2ee158514b95358b0c3e6805fe4"></a>
-coap_code_t&#160;</td><td class="memItemRight" valign="bottom"><b>code</b>:8</td></tr>
-<tr class="separator:ad706c2ee158514b95358b0c3e6805fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d7d6a44aeedb1b2a95ed4881cc5597c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1d7d6a44aeedb1b2a95ed4881cc5597c"></a>
-coap_msg_id_t&#160;</td><td class="memItemRight" valign="bottom"><b>msg_id</b></td></tr>
-<tr class="separator:a1d7d6a44aeedb1b2a95ed4881cc5597c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4558b7c3d5a2704c6029bd60b91d083"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4558b7c3d5a2704c6029bd60b91d083"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>token</b> [0]</td></tr>
-<tr class="separator:aa4558b7c3d5a2704c6029bd60b91d083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/smcp/<a class="el" href="coap_8h_source.html">coap.h</a></li>
+<div class="textblock"><p>Released 2013-02-13.</p>
+<ul>
+<li>Version bump to 0.6.1</li>
+<li>Add &ndash;version query to smcpctl</li>
+<li>configure.ac: Replaced AM_CONFIG_HEADER() with AC_CONFIG_HEADERS()</li>
+<li>Added contiki examples 'smcp-simple' and 'smcp-plugtest' to .travis.yml</li>
+<li>Added contiki examples to Makefile.am, so that they are included in the tarball.</li>
+<li>Various updates and cleanups.</li>
+<li>Various Contiki fixes.</li>
+<li>Make the "smcp-variable_node" no longer be a node. You can now use it without using the node-router.</li>
+<li>Split off <code>smcp-inbound.c</code> from <code>smcp.c</code>.</li>
+<li>Do better about avoiding the use of printf (and variants). </li>
 </ul>
-</div><!-- contents -->
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on Wed Feb 13 2013 21:43:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">

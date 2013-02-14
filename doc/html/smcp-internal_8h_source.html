@@ -96,15 +96,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="smcp_8h.html" title="Primary header.">smcp.h</a>&quot;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="smcp-timer_8h.html" title="Timer scheduling and management.">smcp-timer.h</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="smcp-node-router_8h.html" title="Node router functions.">smcp-node-router.h</a>&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;fasthash.h&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#ifndef SMCP_FUNC_RANDOM_UINT32</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(__APPLE__)</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SMCP_FUNC_RANDOM_UINT32()   arc4random()</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SMCP_RANDOM_MAX         (uint32_t)(0xFFFFFFFF)</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif CONTIKI</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SMCP_FUNC_RANDOM_UINT32() \</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;fasthash.h&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#ifndef SMCP_FUNC_RANDOM_UINT32</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(__APPLE__)</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SMCP_FUNC_RANDOM_UINT32()   arc4random()</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SMCP_RANDOM_MAX         (uint32_t)(0xFFFFFFFF)</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif CONTIKI</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &quot;lib/random.h&quot;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define SMCP_FUNC_RANDOM_UINT32() \</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">        ((uint32_t)random_rand() ^ \</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">            ((uint32_t)random_rand() &lt;&lt; 16))</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SMCP_RANDOM_MAX         RAND_MAX</span></div>
@@ -172,17 +172,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordtype">size_t</span>                  content_len;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        coap_content_type_t     content_type;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        int32_t                 max_age;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        uint8_t                 was_sent_to_multicast:1,</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                is_fake:1,</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                                is_dupe:1,</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                                has_observe_option:1;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        uint8_t                 was_sent_to_multicast:1,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                is_fake:1,</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                is_dupe:1,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                has_observe_option:1;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        uint32_t                transaction_hash;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        uint32_t                observe_value;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        uint32_t                block2_value;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        uint32_t                transaction_hash;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        int32_t                 max_age;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        uint32_t                observe_value;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        uint32_t                block2_value;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#if SMCP_USE_BSD_SOCKETS</span></div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor"></span>        <span class="keyword">struct </span>sockaddr*        saddr;</div>
@@ -245,7 +245,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 28 2013 22:42:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 13 2013 21:43:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

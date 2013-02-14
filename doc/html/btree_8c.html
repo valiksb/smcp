@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>smcp: Binary Tree Functions</title>
+<title>smcp: src/smcp/btree.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -39,7 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -58,7 +58,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -73,40 +78,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_71c3f9133f50cbf33d666bcbff85737e.html">smcp</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Binary Tree Functions</div>  </div>
+<div class="title">btree.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbt__item__s.html">bt_item_s</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gacc7c20c8f46d62eac56a29e70a17ccb0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gacc7c20c8f46d62eac56a29e70a17ccb0"></a>
-typedef struct <a class="el" href="structbt__item__s.html">bt_item_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>bt_item_t</b></td></tr>
-<tr class="separator:gacc7c20c8f46d62eac56a29e70a17ccb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga535cc089a319c18d08e5586172ea3835"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga535cc089a319c18d08e5586172ea3835"></a>
-typedef signed char&#160;</td><td class="memItemRight" valign="bottom"><b>bt_compare_result_t</b></td></tr>
-<tr class="separator:ga535cc089a319c18d08e5586172ea3835"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa299d093d9983072289de189513c5a7a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa299d093d9983072289de189513c5a7a"></a>
-typedef bt_compare_result_t(*&#160;</td><td class="memItemRight" valign="bottom"><b>bt_compare_func_t</b> )(const void *lhs, const void *rhs, void *context)</td></tr>
-<tr class="separator:gaa299d093d9983072289de189513c5a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac95a5fcd680f7787c756e98b74415765"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac95a5fcd680f7787c756e98b74415765"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>bt_delete_func_t</b> )(void *item, void *context)</td></tr>
-<tr class="separator:gac95a5fcd680f7787c756e98b74415765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
+<div class="textblock"><code>#include &quot;<a class="el" href="btree_8h_source.html">btree.h</a>&quot;</code><br/>
+<code>#include &lt;assert.h&gt;</code><br/>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga36a67c70ae7f02c799c1bc36fd5dbe3c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#ga36a67c70ae7f02c799c1bc36fd5dbe3c">bt_insert</a> (void **bt, void *item, bt_compare_func_t compare_func, bt_delete_func_t delete_func, void *context)</td></tr>
-<tr class="memdesc:ga36a67c70ae7f02c799c1bc36fd5dbe3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts the given item into the tree.  <a href="#ga36a67c70ae7f02c799c1bc36fd5dbe3c"></a><br/></td></tr>
+<tr class="memdesc:ga36a67c70ae7f02c799c1bc36fd5dbe3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts the given item into the tree.  <a href="group__btree.html#ga36a67c70ae7f02c799c1bc36fd5dbe3c"></a><br/></td></tr>
 <tr class="separator:ga36a67c70ae7f02c799c1bc36fd5dbe3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga25624b10e606a13880c758365fa39857"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga25624b10e606a13880c758365fa39857"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#ga25624b10e606a13880c758365fa39857">bt_find</a> (void *const *bt, const void *item, bt_compare_func_t compare_func, void *context)</td></tr>
@@ -120,31 +110,24 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#ga2b271a135496b515cf99f8d46c952d33">bt_first</a> (void *item)</td></tr>
 <tr class="memdesc:ga2b271a135496b515cf99f8d46c952d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the left-most node in the subtree described by item. <br/></td></tr>
 <tr class="separator:ga2b271a135496b515cf99f8d46c952d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadcc728af554fd259c2a2b0cac5fbe269"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#gadcc728af554fd259c2a2b0cac5fbe269">bt_next</a> (void *item)</td></tr>
+<tr class="separator:gadcc728af554fd259c2a2b0cac5fbe269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga18ad8f3db91a004fffeed5ac180bfdee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga18ad8f3db91a004fffeed5ac180bfdee"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#ga18ad8f3db91a004fffeed5ac180bfdee">bt_last</a> (void *item)</td></tr>
 <tr class="memdesc:ga18ad8f3db91a004fffeed5ac180bfdee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the right-most node in the subtree described by item. <br/></td></tr>
 <tr class="separator:ga18ad8f3db91a004fffeed5ac180bfdee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadcc728af554fd259c2a2b0cac5fbe269"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#gadcc728af554fd259c2a2b0cac5fbe269">bt_next</a> (void *item)</td></tr>
-<tr class="separator:gadcc728af554fd259c2a2b0cac5fbe269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae4f02e0617952c51267b06bbc1610b94"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#gae4f02e0617952c51267b06bbc1610b94">bt_prev</a> (void *item)</td></tr>
 <tr class="separator:gae4f02e0617952c51267b06bbc1610b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadf8a7fbac6baa52a879f1d030cedfad8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadf8a7fbac6baa52a879f1d030cedfad8"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#gadf8a7fbac6baa52a879f1d030cedfad8">bt_count</a> (void *const *bt)</td></tr>
 <tr class="memdesc:gadf8a7fbac6baa52a879f1d030cedfad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traverses the given tree to determine the number of nodes it contains. <br/></td></tr>
 <tr class="separator:gadf8a7fbac6baa52a879f1d030cedfad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadbdd39ea6c57d69c09255da06cc1b5ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadbdd39ea6c57d69c09255da06cc1b5ee"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>bt_get_balance</b> (void *node)</td></tr>
-<tr class="separator:gadbdd39ea6c57d69c09255da06cc1b5ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga60b634e5e851662ef73ca6c6404bde6e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga60b634e5e851662ef73ca6c6404bde6e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>bt_rotate_left</b> (void **pivot)</td></tr>
-<tr class="separator:ga60b634e5e851662ef73ca6c6404bde6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3aeab04f5596656e8095989405827e3c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3aeab04f5596656e8095989405827e3c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>bt_rotate_right</b> (void **pivot)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>bt_rotate_right</b> (void **bt)</td></tr>
 <tr class="separator:ga3aeab04f5596656e8095989405827e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4bc1a1351c8ee5702e156e5505de090a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4bc1a1351c8ee5702e156e5505de090a"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#ga4bc1a1351c8ee5702e156e5505de090a">bt_rebalance</a> (void **bt)</td></tr>
-<tr class="memdesc:ga4bc1a1351c8ee5702e156e5505de090a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Completely rebalance of the tree. <br/></td></tr>
-<tr class="separator:ga4bc1a1351c8ee5702e156e5505de090a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga60b634e5e851662ef73ca6c6404bde6e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga60b634e5e851662ef73ca6c6404bde6e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>bt_rotate_left</b> (void **bt)</td></tr>
+<tr class="separator:ga60b634e5e851662ef73ca6c6404bde6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadfb1440ef003cdc45da8be40c6907bb3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadfb1440ef003cdc45da8be40c6907bb3"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#gadfb1440ef003cdc45da8be40c6907bb3">bt_unbalance</a> (void **bt)</td></tr>
 <tr class="memdesc:gadfb1440ef003cdc45da8be40c6907bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Completely unbalances the tree. Primarily useful for debugging. <br/></td></tr>
@@ -153,100 +136,33 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#gab49d3c4f02e28dffce06a9c06a2194da">bt_splay</a> (void **bt, void *root)</td></tr>
 <tr class="memdesc:gab49d3c4f02e28dffce06a9c06a2194da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splays the tree to a new root. Useful for splay trees. <br/></td></tr>
 <tr class="separator:gab49d3c4f02e28dffce06a9c06a2194da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadbdd39ea6c57d69c09255da06cc1b5ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadbdd39ea6c57d69c09255da06cc1b5ee"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>bt_get_balance</b> (void *node)</td></tr>
+<tr class="separator:gadbdd39ea6c57d69c09255da06cc1b5ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4bc1a1351c8ee5702e156e5505de090a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4bc1a1351c8ee5702e156e5505de090a"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btree.html#ga4bc1a1351c8ee5702e156e5505de090a">bt_rebalance</a> (void **bt)</td></tr>
+<tr class="memdesc:ga4bc1a1351c8ee5702e156e5505de090a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Completely rebalance of the tree. <br/></td></tr>
+<tr class="separator:ga4bc1a1351c8ee5702e156e5505de090a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga36a67c70ae7f02c799c1bc36fd5dbe3c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int bt_insert </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>bt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bt_compare_func_t&#160;</td>
-          <td class="paramname"><em>compare_func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bt_delete_func_t&#160;</td>
-          <td class="paramname"><em>delete_func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Inserts the given item into the tree. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bt</td><td>Pointer to the root of the tree </td></tr>
-    <tr><td class="paramname">item</td><td>Item to insert </td></tr>
-    <tr><td class="paramname">compare_func</td><td>Comparison function </td></tr>
-    <tr><td class="paramname">delete_func</td><td>Deletion function, used if comparison is equal </td></tr>
-    <tr><td class="paramname">context</td><td>Context, passed into comparison and deletion callbacks. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="gadcc728af554fd259c2a2b0cac5fbe269"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* bt_next </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns the next node in the tree, or NULL the given item is the last (right-most) node in the tree. Performs an in-order depth-first traversal. </p>
-
-</div>
-</div>
-<a class="anchor" id="gae4f02e0617952c51267b06bbc1610b94"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* bt_prev </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns the previous node in the tree, or NULL the given item is the first (left-most) node in the tree. Performs a reverse-order depth-first traversal. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Robert Quattlebaum <a href="#" onclick="location.href='mai'+'lto:'+'dar'+'co'+'@de'+'ep'+'dar'+'c.'+'com'; return false;">darco<span style="display: none;">.nosp@m.</span>@dee<span style="display: none;">.nosp@m.</span>pdarc<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
+<p>Originally published 2010-8-31.</p>
+<p>This file was written by Robert Quattlebaum <a href="#" onclick="location.href='mai'+'lto:'+'dar'+'co'+'@de'+'ep'+'dar'+'c.'+'com'; return false;">darco<span style="display: none;">.nosp@m.</span>@dee<span style="display: none;">.nosp@m.</span>pdarc<span style="display: none;">.nosp@m.</span>.com</a>.</p>
+<p>This work is provided as-is. Unless otherwise provided in writing, Robert Quattlebaum makes no representations or warranties of any kind concerning this work, express, implied, statutory or otherwise, including without limitation warranties of title, merchantability, fitness for a particular purpose, non infringement, or the absence of latent or other defects, accuracy, or the present or absence of errors, whether or not discoverable, all to the greatest extent permissible under applicable law.</p>
+<p>To the extent possible under law, Robert Quattlebaum has waived all copyright and related or neighboring rights to this work. This work is published from the United States.</p>
+<p>I, Robert Quattlebaum, dedicate any and all copyright interest in this work to the public domain. I make this dedication for the benefit of the public at large and to the detriment of my heirs and successors. I intend this dedication to be an overt act of relinquishment in perpetuity of all present and future rights to this code under copyright law. In jurisdictions where this is not possible, I hereby release this code under the Creative Commons Zero (CC0) license.</p>
+<ul>
+<li><a href="http://creativecommons.org/publicdomain/zero/1.0/">http://creativecommons.org/publicdomain/zero/1.0/</a> <hr/>
+</li>
+</ul>
+<h2>Unit Test</h2>
+<p>This file includes its own unit test. To compile the unit test, simply compile this file with the macro BTREE_SELF_TEST set to 1. For example: </p>
+<pre class="fragment">cc btree.c -Wall -DBTREE_SELF_TEST=1 -o btree
+</pre><h2>Todo</h2>
+<ul>
+<li>Add some sort of automatic tree-balancing algorithm, like <a href="http://en.wikipedia.org/wiki/Scapegoat_tree">http://en.wikipedia.org/wiki/Scapegoat_tree</a>. </li>
+</ul>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on Wed Feb 13 2013 21:43:16 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
