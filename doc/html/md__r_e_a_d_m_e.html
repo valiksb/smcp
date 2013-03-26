@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.3"/>
-<title>smcp: SMCP — README</title>
+<title>smcp: SMCP — ReadMe</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,14 +76,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SMCP — README </div>  </div>
+<div class="title">SMCP — ReadMe </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>SMCP is a C-based CoAP stack which is suitable for embedded environments. Features include:</p>
 <ul>
 <li>Supports draft-ietf-core-coap-13.</li>
 <li>Fully asynchronous I/O.</li>
-<li>Supports both BSD sockets and <a href="http://en.wikipedia.org/wiki/UIP_(micro_IP%29">UIP</a>.</li>
+<li>Supports both BSD sockets and <a href="http://en.wikipedia.org/wiki/UIP_(micro_IP%29">µIP</a>.</li>
 <li>Sending and receiving asynchronous CoAP responses.</li>
 <li>Observing resources and offering observable resources.</li>
 <li>Retransmission of confirmable transactions.</li>
@@ -92,21 +92,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Initial focus is on correctness of implementation. Stack usage and other performance optimizations will become the focus later on.</p>
 <h2>Why is it called <em>SMCP</em>?</h2>
 <p>Historical reasons. Don't think about it too much.</p>
-<h2>Contiki Support</h2>
-<p>SMCP fully supports <a href="http://contiki-os.org/">Contiki</a>. To build the Contiki examples, just make sure that the <code>CONTIKI</code> environment variable is set point to your Contiki root, like so: </p>
-<pre class="fragment">$ cd contiki-src/examples/smcp-simple
-$ make CONTIKI=~/Projects/contiki TARGET=minimal-net
-</pre><h2>Installing via Homebrew on OS X</h2>
-<p>To get the "latest-release": </p>
-<pre class="fragment">$ brew tap darconeous/embedded
-$ brew install smcp
-</pre><p>To get the bleeding-edge release: </p>
-<pre class="fragment">$ brew tap darconeous/embedded
-$ brew install smcp --HEAD
-</pre><p>Node: This is mostly for people who just want to use <code>smcpctl</code> (described below). If you want to compile against SMCP, you'll currently need to grab the sources and build against them directly.</p>
+<h2>Getting Help</h2>
+<p>If you are having trouble with SMCP, you can join the official SMCP mailing list and ask your questions there.</p>
+<ul>
+<li><a href="https://groups.google.com/group/smcp-dev">SMCP Developers Group</a> <a href="#" onclick="location.href='mai'+'lto:'+'smc'+'p-'+'dev'+'@g'+'oog'+'le'+'gro'+'up'+'s.c'+'om'; return false;">smcp-<span style="display: none;">.nosp@m.</span>dev@<span style="display: none;">.nosp@m.</span>googl<span style="display: none;">.nosp@m.</span>egro<span style="display: none;">.nosp@m.</span>ups.c<span style="display: none;">.nosp@m.</span>om</a></li>
+</ul>
 <h2>Getting, building, and installing via Git</h2>
 <p>First: </p>
-<pre class="fragment">$ git clone git@github.com:darconeous/smcp.git
+<pre class="fragment">$ git clone git://github.com/darconeous/smcp.git
 $ cd smcp
 </pre><p>To just build the latest tagged stable release: </p>
 <pre class="fragment">$ git checkout latest-release
@@ -115,11 +108,26 @@ $ make
 $ sudo make install
 </pre><p>For bleeding-edge: </p>
 <pre class="fragment">$ git checkout master
-$ git archive master-autoconf | tar xv
+$ git archive origin/master-autoconf | tar xv # Or you should run `./bootstrap.sh`
 $ ./configure
 $ make
 $ sudo make install
-</pre><h2>Getting Started</h2>
+</pre><h2>Getting, building, and installing from an archive</h2>
+<pre class="fragment">$ curl https://github.com/darconeous/smcp/archive/latest-release.zip &gt; smcp-latest-release.zip
+$ unzip latest-release.zip
+$ cd smcp-latest-release
+$ ./configure
+$ make
+$ sudo make install 
+</pre><h2>Installing via Homebrew on OS X</h2>
+<p>To get the "latest-release": </p>
+<pre class="fragment">$ brew tap darconeous/embedded
+$ brew install smcp
+</pre><p>To get the bleeding-edge release: </p>
+<pre class="fragment">$ brew tap darconeous/embedded
+$ brew install smcp --HEAD
+</pre><p>Node: This is mostly for people who just want to use <code>smcpctl</code> (described below). If you want to compile against SMCP, you'll currently need to grab the sources and build against them directly.</p>
+<h2>Getting Started</h2>
 <p>The best way to get started is to have a look at some example code which uses SMCP. The best example at the moment is the plugtest server, which is in the following files:</p>
 <ul>
 <li><code>src/plugtest/main-server.c</code> - Just the main run-loop</li>
@@ -130,7 +138,11 @@ $ sudo make install
 <h2>Configurability</h2>
 <p>One of the goals of SMCP is to implent a full-featured CoAP library, but most embedded applications don't need all of these capabilities. Because of this, SMCP is designed so that you can individually enable or disable features depending on your needs (See <code><a class="el" href="smcp-opts_8h.html" title="SMCP Build Options.">src/smcp/smcp-opts.h</a></code>).</p>
 <p>For example, SMCP has the ability to have more than once instance, but embedded platforms will never need more than one. Passing around a reference to a global variable that will never change is wasteful, so when compiled with <code>SMCP_EMBEDDED</code> turned on, we transparently (via some preprocessor magic) ignore the reference to the SMCP instance from all of the functions that take it. This makes it easy to use the same codebase for both embedded and non-embedded applications. There are other configuration options for doing things like limiting <code>malloc()</code> usage, avoiding use of <code>printf()</code> (and variants), enabling/disabling observing, etc.</p>
-<h2>API Documentation</h2>
+<h2>Contiki Support</h2>
+<p>SMCP fully supports <a href="http://contiki-os.org/">Contiki</a>. To build the Contiki examples, just make sure that the <code>CONTIKI</code> environment variable is set point to your Contiki root, like so: </p>
+<pre class="fragment">$ cd contiki-src/examples/smcp-simple
+$ make CONTIKI=~/Projects/contiki TARGET=minimal-net
+</pre><h2>API Documentation</h2>
 <p>You can find an online version of the API documentation here: <a href="http://darconeous.github.com/smcp/doc/html/">http://darconeous.github.com/smcp/doc/html/</a></p>
 <h2>SMCPCTL</h2>
 <p><code>smcpctl</code> is a command-line interface for browsing, observing, and interacting with CoAP devices. It is, for the most part, self- documenting: just type in <code>smcpctl help</code>. You can run individual commands directly from the command line when invoking <code>smcpctl</code> or you can invoke with no arguments and you will enter the smcpctl shell (CLI). The shell environment allows you to use familiar unix commands like <code>ls</code>, <code>cd</code>, and <code>cat</code>. The CLI supports quoting and tab-completion of resource names, which is incredibly handy.</p>
@@ -159,7 +171,7 @@ $ sudo make install
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 15 2013 16:25:40 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 26 2013 09:39:59 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3
 </small></address>

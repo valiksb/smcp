@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.3"/>
-<title>smcp: Version 0.6.1</title>
+<title>smcp: Release Notes</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,26 +76,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Version 0.6.1 </div>  </div>
+<div class="title">Release Notes </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Released 2013-02-13.</p>
+<div class="textblock"><p>This file contains a reverse-chronological list of releases and their associated changes.</p>
+<h2>Version 0.6.2</h2>
+<p>Released 2013-03-26.</p>
+<ul>
+<li>Various minor fixes and cleanups.</li>
+<li>node-router: No longer depend on <code>btree</code> on embedded platforms.</li>
+<li>transactions: No longer use <code><a class="el" href="btree_8c.html">btree.c</a></code> on embedded builds.</li>
+<li>Contiki support improvements and fixes.</li>
+<li>Allow <code>.well-known/core</code> lookups to work on <code>smcp-simple</code> Contiki example</li>
+<li>smcpctl: Remove some cruft from <code>get</code> command.</li>
+<li>smcpctl: Add <code>--non</code> argument for sending non-confirmable get requests.</li>
+<li>contiki: Fix outbound packet alignment for 32-bit platforms.</li>
+<li>Add <code>smcp-complex</code> contiki example to travis.</li>
+<li>Try to better detect when <code>libdl</code> is not available.</li>
+</ul>
+<h2>Version 0.6.1</h2>
+<p>Released 2013-02-13.</p>
 <ul>
 <li>Version bump to 0.6.1</li>
-<li>Add &ndash;version query to smcpctl</li>
-<li>configure.ac: Replaced AM_CONFIG_HEADER() with AC_CONFIG_HEADERS()</li>
-<li>Added contiki examples 'smcp-simple' and 'smcp-plugtest' to .travis.yml</li>
-<li>Added contiki examples to Makefile.am, so that they are included in the tarball.</li>
+<li>Add <code>--version</code> query to <code>smcpctl</code></li>
+<li>configure.ac: Replaced <code>AM_CONFIG_HEADER()</code> with <code>AC_CONFIG_HEADERS()</code></li>
+<li>Added contiki examples 'smcp-simple' and 'smcp-plugtest' to <code>.travis.yml</code></li>
+<li>Added contiki examples to <code>Makefile.am</code>, so that they are included in the tarball.</li>
 <li>Various updates and cleanups.</li>
 <li>Various Contiki fixes.</li>
 <li>Make the "smcp-variable_node" no longer be a node. You can now use it without using the node-router.</li>
 <li>Split off <code>smcp-inbound.c</code> from <code>smcp.c</code>.</li>
-<li>Do better about avoiding the use of printf (and variants). </li>
+<li>Do better about avoiding the use of <code>printf()</code> (and variants).</li>
 </ul>
+<h2>Version 0.6</h2>
+<p>Initial public release. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 15 2013 16:25:40 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 26 2013 09:39:59 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3
 </small></address>
