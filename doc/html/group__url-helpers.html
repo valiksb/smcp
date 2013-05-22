@@ -24,6 +24,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">smcp
    </div>
+   <div id="projectbrief">A Portable Light-weight CoAP Stack</div>
   </td>
  </tr>
  </tbody>
@@ -76,6 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -83,6 +85,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structurl__components__s.html">url_components_s</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga6f8e7bbca97647bd03c5f374fcdf6790"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6f8e7bbca97647bd03c5f374fcdf6790"></a>
@@ -111,8 +118,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>url_decode_cstr_inpla
 <tr class="separator:ga713d180854b56b91747171c45fb18098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad95d6a9f7a695d1c07b88474ba65f937"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__url-helpers.html#gad95d6a9f7a695d1c07b88474ba65f937">url_path_next_component</a> (char **path_string, char **component)</td></tr>
 <tr class="separator:gad95d6a9f7a695d1c07b88474ba65f937"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaca493d17ed60d707837015ed5ea71737"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__url-helpers.html#gaca493d17ed60d707837015ed5ea71737">url_parse</a> (char *url, char **protocol, char **username, char **password, char **host, char **port, char **path, char **query)</td></tr>
-<tr class="separator:gaca493d17ed60d707837015ed5ea71737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0018850368016ba131836c328a087ea2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__url-helpers.html#ga0018850368016ba131836c328a087ea2">url_parse</a> (char *url, struct <a class="el" href="structurl__components__s.html">url_components_s</a> *components)</td></tr>
+<tr class="separator:ga0018850368016ba131836c328a087ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga13eea7545298edb30ec95302df5ed4b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga13eea7545298edb30ec95302df5ed4b9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>url_is_absolute</b> (const char *url)</td></tr>
 <tr class="separator:ga13eea7545298edb30ec95302df5ed4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -380,7 +387,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>url_change</b> (char 
 
 </div>
 </div>
-<a class="anchor" id="gaca493d17ed60d707837015ed5ea71737"></a>
+<a class="anchor" id="ga0018850368016ba131836c328a087ea2"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -393,44 +400,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>url_change</b> (char 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>protocol</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>username</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>password</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>host</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>port</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>query</em>&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structurl__components__s.html">url_components_s</a> *&#160;</td>
+          <td class="paramname"><em>components</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -484,7 +455,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>url_change</b> (char 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 26 2013 09:39:59 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 22 2013 12:36:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3
 </small></address>

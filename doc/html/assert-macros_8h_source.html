@@ -24,6 +24,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">smcp
    </div>
+   <div id="projectbrief">A Portable Light-weight CoAP Stack</div>
   </td>
  </tr>
  </tbody>
@@ -112,7 +113,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &lt;assert.h&gt;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#if !DEBUG &amp;&amp; !VERBOSE_DEBUG</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#if !DEBUG || ASSERT_MACROS_SQUELCH</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span><span class="preprocessor"> #define assert_printf(fmt, ...) do { } while(0)</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor"></span><span class="preprocessor"> #define check_string(c, s)   do { } while(0)</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor"></span><span class="preprocessor"> #define require_action_string(c, l, a, s) \</span></div>
@@ -183,7 +184,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 26 2013 09:39:59 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 22 2013 12:36:47 for smcp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3
 </small></address>
