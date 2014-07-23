@@ -37,6 +37,8 @@
 #include <smcp/smcp.h>
 #include "plugtest-server.h"
 
+#include <smcp/string-utils.h> // For uint32_to_dec_cstr()
+
 #if CONTIKI && !defined(time)
 #define time(x)		clock_seconds()
 #endif
