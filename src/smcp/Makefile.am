@@ -1,37 +1,34 @@
-INCLUDES =  -I.. -I$(top_srcdir)/src
-#AM_CFLAGS = @CFLAGS@ @WARN_CFLAGS@
 
 AUTOMAKE_OPTIONS = subdir-objects
 
 lib_LTLIBRARIES = libsmcp.la
 
-libsmcp_la_SOURCES = smcp.c smcp-timer.c coap.c smcp-outbound.c smcp-inbound.c smcp-observable.c smcp-auth.c smcp-transaction.c smcp-dupe.c
-libsmcp_la_SOURCES += smcp-plat-bsd.c
-libsmcp_la_SOURCES += btree.c url-helpers.c fasthash.c
+@CODE_COVERAGE_RULES@
 
-libsmcp_la_SOURCES += btree.h coap.h ll.h smcp-helpers.h smcp-internal.h smcp-logging.h url-helpers.h fasthash.h  smcp-dupe.h
-pkginclude_HEADERS = assert-macros.h smcp-timer.h smcp.h smcp-plat-bsd.h smcp-auth.h smcp-transaction.h smcp-opts.h smcp-observable.h btree.h coap.h ll.h smcp-helpers.h
+AM_LIBS = $(CODE_COVERAGE_LDFLAGS)
+AM_CFLAGS = $(CFLAGS) $(CODE_COVERAGE_CFLAGS)
+AM_CPPFLAGS = -I.. -I$(top_srcdir)/src
 
-# Extras
-libsmcp_la_SOURCES += smcp-node-router.c smcp-list.c
-pkginclude_HEADERS += smcp-node-router.h
-libsmcp_la_SOURCES += smcp-variable_node.c
-pkginclude_HEADERS += smcp-variable_node.h
+libsmcp_la_SOURCES = \
+	assert-macros.h \
+	smcp-pairing.c smcp-pairing.h \
+	smcp-group.c smcp-group.h \
+	$(NULL)
 
-EXTRA_DIST = smcp-plat-bsd-internal.h smcp-plat-uip-internal.h smcp-plat-uip.c smcp-plat-uip.h
+pkginclude_HEADERS = \
+	smcp.h \
+	smcp-pairing.h \
+	smcp-defaults.h \
+	smcp-group.h \
+	$(top_builddir)/src/smcp/smcp-config.h \
+	$(NULL)
 
-libsmcp_la_LIBADD = $(LIBOBJS) $(ALLOCA) $(PTHREAD_LIBS)
-libsmcp_la_CFLAGS = $(PTHREAD_CFLAGS)
+EXTRA_DIST = smcp-config.h.in
 
-if HAVE_LIBCURL
-libsmcp_la_SOURCES += smcp-curl_proxy.c
-pkginclude_HEADERS +=  smcp-curl_proxy.h
-endif
-
-noinst_PROGRAMS = btreetest
-btreetest_SOURCES = btree.c
-btreetest_CFLAGS = -DBTREE_SELF_TEST=1
+libsmcp_la_CFLAGS = $(AM_CFLAGS) $(PTHREAD_CFLAGS) $(LIBNYOCI_CFLAGS)
+libsmcp_la_LIBADD = $(LIBOBJS) $(ALLOCA) $(PTHREAD_LIBS) $(OPENSSL_LIBS) $(LIBNYOCI_LIBS)
+libsmcp_la_CPPFLAGS = $(AM_CPPFLAGS) $(OPENSSL_INCLUDES) $(LIBNYOCI_INCLUDES) $(MISSING_CPPFLAGS)
+libsmcp_la_LDFLAGS = $(AM_LDFLAGS) $(OPENSSL_LDFLAGS) $(LIBNYOCI_LDFLAGS) $(MISSING_LIBADD)
 
 DISTCLEANFILES = .deps Makefile
 
-TESTS = btreetest

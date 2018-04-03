@@ -1,8 +1,8 @@
-/*!	@file smcp-opts.h
+/*!	@file smcp-defaults.h
 **	@author Robert Quattlebaum <darco@deepdarc.com>
-**	@brief SMCP Build Options
+**	@brief SMCP Default Build Options
 **
-**	Copyright (C) 2011,2012 Robert Quattlebaum
+**	Copyright (C) 2017 Robert Quattlebaum
 **
 **	Permission is hereby granted, free of charge, to any person
 **	obtaining a copy of this software and associated
@@ -27,20 +27,26 @@
 **	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef __SMCP_OPS_H__
-#define __SMCP_OPS_H__
+#ifndef __SMCP_DEFAULTS_H__
+#define __SMCP_DEFAULTS_H__
 
 /*****************************************************************************/
 // MARK: - SMCP Build Parameters
 
-//#define NYOCI_AVOID_MALLOC		1
-//#define NYOCI_AVOID_PRINTF		1
-//#define ASSERT_MACROS_USE_VANILLA_PRINTF 1
-//#define DEBUG 1
-//#define VERBOSE_DEBUG
-//#define NYOCI_SINGLETON 1
-//#define NYOCI_USE_BSD_SOCKETS 1
-//#define SMCP_BSD_SOCKETS_NET_FAMILY		AF_INET
+#ifndef SMCP_CONF_MAX_PAIRINGS
+#if NYOCI_EMBEDDED
+#define SMCP_CONF_MAX_PAIRINGS				2
+#else
+#define SMCP_CONF_MAX_PAIRINGS				16
+#endif
+#endif
 
+#ifndef SMCP_CONF_MAX_GROUPS
+#if NYOCI_EMBEDDED
+#define SMCP_CONF_MAX_GROUPS				2
+#else
+#define SMCP_CONF_MAX_GROUPS				16
+#endif
+#endif
 
 #endif

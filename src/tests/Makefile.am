@@ -1,12 +1,17 @@
-INCLUDES = -I.. -I$(top_srcdir)/src
+AM_CPPFLAGS = -I.. -I$(top_srcdir)/src
 #AM_CFLAGS = @CFLAGS@ @WARN_CFLAGS@
 
-noinst_PROGRAMS =
+check_PROGRAMS =
 
-noinst_PROGRAMS += test-concurrency
-test_concurrency_SOURCES = test-concurrency.c
-test_concurrency_LDADD = ../smcp/libsmcp.la
+@CODE_COVERAGE_RULES@
 
-TESTS = test-concurrency
+AM_LIBS = $(CODE_COVERAGE_LDFLAGS)
+AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
+
+#check_PROGRAMS += test-concurrency
+#test_concurrency_SOURCES = test-concurrency.c
+#test_concurrency_LDADD = ../libsmcp/libsmcp.la
+
+#TESTS = test-concurrency
 
 DISTCLEANFILES = .deps Makefile

@@ -1,7 +1,7 @@
 /*	@file system-node.c
 **	@author Robert Quattlebaum <darco@deepdarc.com>
 **
-**	Copyright (C) 2011,2012 Robert Quattlebaum
+**	Copyright (C) 2016 Robert Quattlebaum
 **
 **	Permission is hereby granted, free of charge, to any person
 **	obtaining a copy of this software and associated
@@ -30,19 +30,32 @@
 #include <config.h>
 #endif
 
-#include <smcp/assert-macros.h>
+#define _BSD_SOURCE
+
+#ifndef ASSERT_MACROS_USE_SYSLOG
+#define ASSERT_MACROS_USE_SYSLOG 1
+#endif
+
+#include "smcp/assert-macros.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <smcp/smcp.h>
-#include <smcp/smcp-variable_node.h>
+#include <libnyoci/libnyoci.h>
+#include <libnyociextra/libnyociextra.h>
+#include <libnyociextra/libnyociextra.h>
 #include <time.h>
 #include <errno.h>
+#include <unistd.h>
+#include "system-node.h"
 
 enum {
-	SYS_NODE_PATH_LOADAVG_1=0,
+	SYS_NODE_PATH_UPTIME=0,
+	SYS_NODE_PATH_PID,
+
+#if HAVE_GETLOADAVG
+	SYS_NODE_PATH_LOADAVG_1,
 	SYS_NODE_PATH_LOADAVG_5,
 	SYS_NODE_PATH_LOADAVG_15,
-	SYS_NODE_PATH_UPTIME,
+#endif
 
 	SYS_NODE_PATH_COUNT
 };
@@ -68,51 +81,67 @@ static time_t uptime() {
 }
 #endif
 
-static smcp_status_t device_func(
-	smcp_variable_node_t node,
+struct system_node_s {
+	struct nyoci_node_s node;
+	struct nyoci_var_handler_s variable_handler;
+};
+
+
+static nyoci_status_t device_func(
+	nyoci_var_handler_t node,
 	uint8_t action,
 	uint8_t path,
 	char* value
 ) {
-	smcp_status_t ret = 0;
+	nyoci_status_t ret = 0;
 	if(path>=SYS_NODE_PATH_COUNT) {
-		ret = SMCP_STATUS_NOT_FOUND;
-	} else if(action==SMCP_VAR_GET_KEY) {
+		ret = NYOCI_STATUS_NOT_FOUND;
+	} else if (action == NYOCI_VAR_GET_KEY) {
 		static const char* path_names[] = {
+			[SYS_NODE_PATH_UPTIME]="uptime",
+			[SYS_NODE_PATH_PID]="pid",
+#if HAVE_GETLOADAVG
 			[SYS_NODE_PATH_LOADAVG_1]="loadavg-1",
 			[SYS_NODE_PATH_LOADAVG_5]="loadavg-5",
 			[SYS_NODE_PATH_LOADAVG_15]="loadavg-15",
-			[SYS_NODE_PATH_UPTIME]="uptime",
+#endif
 		};
 		strcpy(value,path_names[path]);
-	} else if(action==SMCP_VAR_GET_MAX_AGE) {
+	} else if (action == NYOCI_VAR_GET_MAX_AGE) {
 		int max_age = 0;
 		switch(path) {
+#if HAVE_GETLOADAVG
 			case SYS_NODE_PATH_LOADAVG_1:
 			case SYS_NODE_PATH_LOADAVG_5:
 			case SYS_NODE_PATH_LOADAVG_15:
 				max_age = 5;
 				break;
+#endif
 			case SYS_NODE_PATH_UPTIME:
 				max_age = 1;
 				break;
 		}
 		if(max_age) {
+			// TODO: Change this
 			sprintf(value,"%d",max_age);
 		} else {
-			return SMCP_STATUS_FAILURE;
+			return NYOCI_STATUS_NOT_ALLOWED;
 		}
-	} else if(action==SMCP_VAR_GET_OBSERVABLE) {
+	} else if (action == NYOCI_VAR_GET_OBSERVABLE) {
 		static const bool observable[] = {
+			[SYS_NODE_PATH_UPTIME] = 0,
+#if HAVE_GETLOADAVG
 			[SYS_NODE_PATH_LOADAVG_1] = 0,
 			[SYS_NODE_PATH_LOADAVG_5] = 0,
 			[SYS_NODE_PATH_LOADAVG_15] = 0,
-			[SYS_NODE_PATH_UPTIME] = 0,
+#endif
 		};
-		if(!observable)
-			return SMCP_STATUS_NOT_ALLOWED;
-	} else if(action==SMCP_VAR_GET_VALUE) {
+		if(!observable[path]) {
+			return NYOCI_STATUS_NOT_ALLOWED;
+		}
+	} else if (action == NYOCI_VAR_GET_VALUE) {
 		switch(path) {
+#if HAVE_GETLOADAVG
 			case SYS_NODE_PATH_LOADAVG_1:
 			case SYS_NODE_PATH_LOADAVG_5:
 			case SYS_NODE_PATH_LOADAVG_15:
@@ -121,43 +150,58 @@ static smcp_status_t device_func(
 					require_action(
 						0 < getloadavg(loadavg, sizeof(loadavg) / sizeof(*loadavg)),
 						bail,
-						ret = SMCP_STATUS_FAILURE
+						ret = NYOCI_STATUS_FAILURE
 					);
 
 					require_action(
 						(size_t)snprintf(
 							value,
-							SMCP_VARIABLE_MAX_VALUE_LENGTH,
+							NYOCI_VARIABLE_MAX_VALUE_LENGTH,
 							"%0.2f",
 							loadavg[path]
-						) <= SMCP_VARIABLE_MAX_VALUE_LENGTH,
+						) <= NYOCI_VARIABLE_MAX_VALUE_LENGTH,
 						bail,
-						ret = SMCP_STATUS_FAILURE
+						ret = NYOCI_STATUS_FAILURE
 					);
 				}
 				break;
+#endif // HAVE_GETLOADAVG
 
 			case SYS_NODE_PATH_UPTIME:
 				require_action(
 					(size_t)snprintf(
 						value,
-						SMCP_VARIABLE_MAX_VALUE_LENGTH,
+						NYOCI_VARIABLE_MAX_VALUE_LENGTH,
 						"%d",
 						(int)uptime()
-					) <= SMCP_VARIABLE_MAX_VALUE_LENGTH,
+					) <= NYOCI_VARIABLE_MAX_VALUE_LENGTH,
 					bail,
-					ret = SMCP_STATUS_FAILURE
+					ret = NYOCI_STATUS_FAILURE
 				);
 				break;
 
+			case SYS_NODE_PATH_PID:
+				require_action(
+					(size_t)snprintf(
+						value,
+						NYOCI_VARIABLE_MAX_VALUE_LENGTH,
+						"%d",
+						(int)getpid()
+					) <= NYOCI_VARIABLE_MAX_VALUE_LENGTH,
+					bail,
+					ret = NYOCI_STATUS_FAILURE
+				);
+				break;
+
+
 			default:
-				ret = SMCP_STATUS_NOT_ALLOWED;
+				ret = NYOCI_STATUS_NOT_ALLOWED;
 				break;
 		}
-	} else if(action==SMCP_VAR_SET_VALUE) {
-		ret = SMCP_STATUS_NOT_ALLOWED;
+	} else if(action==NYOCI_VAR_SET_VALUE) {
+		ret = NYOCI_STATUS_NOT_ALLOWED;
 	} else {
-		ret = SMCP_STATUS_NOT_IMPLEMENTED;
+		ret = NYOCI_STATUS_NOT_IMPLEMENTED;
 	}
 
 bail:
@@ -165,35 +209,50 @@ bail:
 }
 
 static void
-system_node_dealloc(smcp_variable_node_t x) {
+system_node_dealloc(system_node_t x) {
 	free(x);
 }
 
-smcp_variable_node_t
-system_node_alloc() {
-	smcp_variable_node_t ret =
-	    (smcp_variable_node_t)calloc(sizeof(struct smcp_variable_node_s), 1);
+system_node_t
+system_node_alloc()
+{
+	system_node_t ret =
+	    (system_node_t)calloc(sizeof(struct system_node_s), 1);
 
-	ret->node.finalize = (void (*)(smcp_node_t)) &system_node_dealloc;
+	ret->node.finalize = (void (*)(nyoci_node_t)) &system_node_dealloc;
 	return ret;
 }
 
-
-smcp_variable_node_t
-smcp_system_node_init(
-	smcp_variable_node_t self,
-	smcp_node_t parent,
-	const char* name
+nyoci_status_t
+system_node_request_handler(
+	system_node_t		node
 ) {
+	return nyoci_var_handler_request_handler(&node->variable_handler);
+}
+
+system_node_t
+system_node_init(
+	system_node_t self,
+	nyoci_node_t parent,
+	const char* name,
+	const char* other
+) {
+	NYOCI_LIBRARY_VERSION_CHECK();
+
 	require(self || (self = system_node_alloc()), bail);
 
-	require(smcp_variable_node_init(
-		self,
-		(void*)parent,
-		name
+	self->variable_handler.func = device_func;
+
+	require(&self->node == nyoci_node_init(
+			&self->node,
+			(void*)parent,
+			name
 	), bail);
 
-	self->func = device_func;
+	((nyoci_node_t)&self->node)->request_handler = (void*)&system_node_request_handler;
+
+	self->node.has_link_content = 1;
+
 
 bail:
 	return self;
@@ -202,3 +261,30 @@ bail:
 
 
 
+
+nyoci_status_t
+SMCPD_module__system_node_process(system_node_t self) {
+	return NYOCI_STATUS_OK;
+}
+
+nyoci_status_t
+SMCPD_module__system_node_update_fdset(
+	system_node_t self,
+    fd_set *read_fd_set,
+    fd_set *write_fd_set,
+    fd_set *error_fd_set,
+    int *fd_count,
+	nyoci_cms_t *timeout
+) {
+	return NYOCI_STATUS_OK;
+}
+
+system_node_t
+SMCPD_module__system_node_init(
+	system_node_t	self,
+	nyoci_node_t			parent,
+	const char*			name,
+	const char*			cmd
+) {
+	return system_node_init(self, parent, name, cmd);
+}

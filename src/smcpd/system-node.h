@@ -1,8 +1,7 @@
-/*!	@file smcp-opts.h
+/*	@file system-node.h
 **	@author Robert Quattlebaum <darco@deepdarc.com>
-**	@brief SMCP Build Options
 **
-**	Copyright (C) 2011,2012 Robert Quattlebaum
+**	Copyright (C) 2016 Robert Quattlebaum
 **
 **	Permission is hereby granted, free of charge, to any person
 **	obtaining a copy of this software and associated
@@ -27,20 +26,35 @@
 **	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef __SMCP_OPS_H__
-#define __SMCP_OPS_H__
+#ifndef system_node_h
+#define system_node_h
 
-/*****************************************************************************/
-// MARK: - SMCP Build Parameters
+#include <libnyoci/libnyoci.h>
 
-//#define NYOCI_AVOID_MALLOC		1
-//#define NYOCI_AVOID_PRINTF		1
-//#define ASSERT_MACROS_USE_VANILLA_PRINTF 1
-//#define DEBUG 1
-//#define VERBOSE_DEBUG
-//#define NYOCI_SINGLETON 1
-//#define NYOCI_USE_BSD_SOCKETS 1
-//#define SMCP_BSD_SOCKETS_NET_FAMILY		AF_INET
+struct system_node_s;
+
+typedef struct system_node_s* system_node_t;
+
+extern nyoci_status_t
+SMCPD_module__system_node_process(system_node_t self);
+
+extern nyoci_status_t
+SMCPD_module__system_node_update_fdset(
+	system_node_t self,
+    fd_set *read_fd_set,
+    fd_set *write_fd_set,
+    fd_set *error_fd_set,
+    int *fd_count,
+	nyoci_cms_t *timeout
+);
+
+extern system_node_t
+SMCPD_module__system_node_init(
+	system_node_t	self,
+	nyoci_node_t			parent,
+	const char*			name,
+	const char*			cmd
+);
 
 
-#endif
+#endif /* system_node_h */

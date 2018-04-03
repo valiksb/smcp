@@ -36,7 +36,8 @@
 
 #define HAVE_FGETLN 0
 
-#include <smcp/assert-macros.h>
+#include "smcp/assert-macros.h"
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,14 +51,17 @@
 #include <poll.h>
 #include <sys/select.h>
 #include <libgen.h>
+#include <time.h>
 #include <syslog.h>
 
-#include <smcp/smcp.h>
-#include <smcp/smcp-node-router.h>
-//#include <smcp/smcp-pairing.h>
+#include <libnyoci/libnyoci.h>
+#include <libnyociextra/libnyociextra.h>
 #include <missing/fgetln.h>
-//#include <smcp/smcp-timer_node.h>
 #include "help.h"
+
+#if NYOCI_PLAT_TLS_OPENSSL
+#include <openssl/ssl.h>
+#endif
 
 #if HAVE_DLFCN_H
 #include <dlfcn.h>
@@ -69,16 +73,22 @@
 #endif
 #endif
 
+#include "cgi-node.h"
+#include "system-node.h"
+#include "ud-var-node.h"
+#include "pairing-node.h"
+#include "group-node.h"
+
 #if HAVE_LIBCURL
 #include <smcp/smcp-curl_proxy.h>
 #endif
 
 #ifndef PREFIX
-#define PREFIX "/usr/local/"
+#define PREFIX "/usr/local"
 #endif
 
-#ifndef ETC_PREFIX
-#define ETC_PREFIX PREFIX"etc/"
+#ifndef SYSCONFDIR
+#define SYSCONFDIR PREFIX "etc"
 #endif
 
 #define ERRORCODE_OK            (0)
@@ -101,11 +111,14 @@ static arg_list_item_t option_list[] = {
 	{ 'd', "debug", NULL, "Enable debugging mode"	},
 	{ 'p', "port",	NULL, "Port number"				},
 	{ 'c', "config",NULL, "Config File"				},
+#if NYOCI_PLAT_TLS_OPENSSLL && HAVE_OPENSSL_SSL_CONF_CTX_NEW
+	{ 0, NULL,	"ssl-*", "SSL Configuration commands (see docs)" },
+#endif
 	{ 0 }
 };
 
-static smcp_t smcp;
-static struct smcp_node_s root_node;
+nyoci_t gMyNyociInstance;
+static struct nyoci_node_s root_node;
 static int gRet;
 
 static const char* gProcessName = "smcpd";
@@ -114,11 +127,23 @@ static const char* gPIDFilename = NULL;
 static sig_t gPreviousHandlerForSIGINT;
 static sig_t gPreviousHandlerForSIGTERM;
 
+#if NYOCI_DTLS
+#if NYOCI_PLAT_TLS_OPENSSL
+static SSL_CTX* gSslCtx;
+#if HAVE_OPENSSL_SSL_CONF_CTX_NEW
+static SSL_CONF_CTX* gSslConfCtx;
+#endif
+#else
+static void* gSslCtx;
+#endif
+#endif
+
 static void
 signal_SIGINT(int sig) {
 	gRet = ERRORCODE_INTERRUPT;
 	syslog(LOG_NOTICE,"Caught SIGINT!");
 	signal(SIGINT, gPreviousHandlerForSIGINT);
+	gPreviousHandlerForSIGINT = NULL;
 }
 
 static void
@@ -126,6 +151,7 @@ signal_SIGTERM(int sig) {
 	gRet = ERRORCODE_INTERRUPT;
 	syslog(LOG_NOTICE,"Caught SIGTERM!");
 	signal(SIGTERM, gPreviousHandlerForSIGTERM);
+	gPreviousHandlerForSIGTERM = NULL;
 }
 
 static void
@@ -136,26 +162,26 @@ signal_SIGHUP(int sig) {
 
 #define SMCPD_MAX_ASYNC_IO_MODULES	30
 struct {
-	smcp_node_t node;
-	smcp_status_t (*update_fdset)(
-		smcp_node_t node,
+	nyoci_node_t node;
+	nyoci_status_t (*update_fdset)(
+		nyoci_node_t node,
 		fd_set *read_fd_set,
 		fd_set *write_fd_set,
 		fd_set *error_fd_set,
-		int *max_fd,
-		cms_t *timeout
+		int *fd_count,
+		nyoci_cms_t *timeout
 	);
-	smcp_status_t (*process)(smcp_node_t node);
+	nyoci_status_t (*process)(nyoci_node_t node);
 } async_io_module[SMCPD_MAX_ASYNC_IO_MODULES];
 int async_io_module_count;
 
-smcp_status_t
+nyoci_status_t
 smcpd_modules_update_fdset(
     fd_set *read_fd_set,
     fd_set *write_fd_set,
     fd_set *error_fd_set,
-    int *max_fd,
-    cms_t *timeout
+    int *fd_count,
+	nyoci_cms_t *timeout
 ) {
 	int i;
 	for(i=0;i<async_io_module_count;i++) {
@@ -165,55 +191,70 @@ smcpd_modules_update_fdset(
 				read_fd_set,
 				write_fd_set,
 				error_fd_set,
-				max_fd,
+				fd_count,
 				timeout
 			);
 	}
-	return SMCP_STATUS_OK;
+	return NYOCI_STATUS_OK;
 }
 
-smcp_status_t
-smcpd_modules_process() {
-	smcp_status_t status = 0;
+nyoci_status_t
+smcpd_modules_process()
+{
+	nyoci_status_t status = 0;
 	int i;
 	for(i=0;i<async_io_module_count && !status;i++) {
-		if(async_io_module[i].process)
+		if(async_io_module[i].process) {
 			status = async_io_module[i].process(async_io_module[i].node);
+		}
 	}
 	return status;
 }
 
-smcp_node_t smcpd_make_node(const char* type, smcp_node_t parent, const char* name, const char* argument) {
-	smcp_node_t ret = NULL;
+nyoci_node_t smcpd_make_node(const char* type, nyoci_node_t parent, const char* name, const char* argument)
+{
+	nyoci_node_t ret = NULL;
 
-	typedef smcp_node_t (*init_func_t)(smcp_node_t self, smcp_node_t parent, const char* name, const char* argument);
-	typedef smcp_status_t (*process_func_t)(smcp_node_t self);
-	typedef smcp_status_t (*update_fdset_func_t)(
-		smcp_node_t node,
+	typedef nyoci_node_t (*init_func_t)(nyoci_node_t self, nyoci_node_t parent, const char* name, const char* argument);
+	typedef nyoci_status_t (*process_func_t)(nyoci_node_t self);
+	typedef nyoci_status_t (*update_fdset_func_t)(
+		nyoci_node_t node,
 		fd_set *read_fd_set,
 		fd_set *write_fd_set,
 		fd_set *error_fd_set,
-		int *max_fd,
-		cms_t *timeout
+		int *fd_count,
+		nyoci_cms_t *timeout
 	);
 
-	init_func_t init_func;
-	process_func_t process_func;
-	update_fdset_func_t update_fdset_func;
+	init_func_t init_func = NULL;
+	process_func_t process_func = NULL;
+	update_fdset_func_t update_fdset_func = NULL;
 
 
-	syslog(LOG_NOTICE,"MAKE t=\"%s\" n=\"%s\" a=\"%s\"",type, name, argument);
+	syslog(LOG_INFO,"MAKE t=\"%s\" n=\"%s\" a=\"%s\"",type, name, argument);
 
 	if(!type || strcaseequal(type,"node")) {
-		init_func = (init_func_t)&smcp_node_init;
-//	} else if(strcaseequal(type,"timer")) {
-//		init_func = &smcp_timer_node_init;
-#if HAVE_LIBCURL
-	} else if(strcaseequal(type,"curl_proxy")) {
-		init_func = (init_func_t)&smcp_curl_proxy_node_init;
-		update_fdset_func = (update_fdset_func_t)&smcp_curl_proxy_node_update_fdset;
-		process_func = (process_func_t)&smcp_curl_proxy_node_process;
-#endif
+		init_func = (init_func_t)&nyoci_node_init;
+	} else if(strcaseequal(type,"system_node") || strcaseequal(type,"system")) {
+		init_func = (init_func_t)&SMCPD_module__system_node_init;
+		update_fdset_func = (update_fdset_func_t)&SMCPD_module__system_node_update_fdset;
+		process_func = (process_func_t)&SMCPD_module__system_node_process;
+	} else if(strcaseequal(type,"cgi_node") || strcaseequal(type,"cgi")) {
+		init_func = (init_func_t)&SMCPD_module__cgi_node_init;
+		update_fdset_func = (update_fdset_func_t)&SMCPD_module__cgi_node_update_fdset;
+		process_func = (process_func_t)&SMCPD_module__cgi_node_process;
+	} else if(strcaseequal(type,"ud_var_node") || strcaseequal(type,"ud_var")) {
+		init_func = (init_func_t)&SMCPD_module__ud_var_node_init;
+		update_fdset_func = (update_fdset_func_t)&SMCPD_module__ud_var_node_update_fdset;
+		process_func = (process_func_t)&SMCPD_module__ud_var_node_process;
+	} else if(strcaseequal(type,"pairing_node") || strcaseequal(type,"pairing")) {
+		init_func = (init_func_t)&SMCPD_module__pairing_node_init;
+		update_fdset_func = (update_fdset_func_t)&SMCPD_module__pairing_node_update_fdset;
+		process_func = (process_func_t)&SMCPD_module__pairing_node_process;
+	} else if(strcaseequal(type,"group_node") || strcaseequal(type,"group")) {
+		init_func = (init_func_t)&SMCPD_module__group_node_init;
+		update_fdset_func = (update_fdset_func_t)&SMCPD_module__group_node_update_fdset;
+		process_func = (process_func_t)&SMCPD_module__group_node_process;
 #if HAVE_DLFCN_H
 	} else if(type) {
 		char symbol_name[100];
@@ -241,33 +282,34 @@ smcp_node_t smcpd_make_node(const char* type, smcp_node_t parent, const char* na
 #endif
 	}
 
-	if(init_func) {
+	if (init_func) {
 		ret = (*init_func)(
 			NULL,
 			parent,
 			strdup(name),
 			argument?strdup(argument):NULL
 		);
-		if(!ret) {
+		if (ret == NULL) {
 			syslog(LOG_WARNING,"Init method failed for node type \"%s\"",type);
 		}
 	} else {
 		syslog(LOG_NOTICE,"Can't find init method for node type \"%s\"",type);
 	}
 
-	if(ret && (process_func || update_fdset_func)) {
+	if (ret && (process_func || update_fdset_func)) {
 		async_io_module[async_io_module_count].node = ret;
 		async_io_module[async_io_module_count].update_fdset = update_fdset_func;
 		async_io_module[async_io_module_count].process = process_func;
 		async_io_module_count++;
 	}
 
-	check_noerr(init_func);
+	check(ret != NULL);
 
 	return ret;
 }
 
-static char* get_next_arg(char *buf, char **rest) {
+char*
+get_next_arg(char *buf, char **rest) {
 	char* ret = NULL;
 
 	while(*buf && isspace(*buf)) buf++;
@@ -317,33 +359,70 @@ strlinelen(const char* line) {
 }
 
 static int
-read_configuration(smcp_t smcp,const char* filename) {
+read_configuration(nyoci_t smcp,const char* filename) {
 	int ret = 1;
 	syslog(LOG_INFO,"Reading configuration from \"%s\" . . .",filename);
 
 	FILE* file = fopen(filename,"r");
 	char* line = NULL;
 	size_t line_len = 0;
-	smcp_node_t node = &root_node;
+	nyoci_node_t node = &root_node;
 	int line_number = 0;
-	smcp_status_t status = 0;
+	int ssl_ret;
 
-	require(file!=NULL,bail);
+	(void)ssl_ret;
+	require(file != NULL,bail);
 
 	while(!feof(file) && (line=fgetln(file,&line_len))) {
 		char *cmd = get_next_arg(line,&line);
 		line_number++;
-		if(!cmd)
+		if(!cmd) {
 			continue;
+		}
+#if NYOCI_PLAT_TLS_OPENSSL && HAVE_OPENSSL_SSL_CONF_CTX_NEW
+		// Handle OpenSSL configuration options from configuration file
+		else if ((ssl_ret = SSL_CONF_cmd(gSslConfCtx, cmd, line)) != -2) {
+			if (ssl_ret > 0) {
+			} else if (ssl_ret == 0) {
+				syslog(LOG_ERR,"%s:%d: OpenSSL rejected command %s",filename,line_number,cmd);
+				goto bail;
+			} else if (ssl_ret < 0) {
+				syslog(LOG_ERR,"%s:%d: OpenSSL rejected command %s",filename,line_number,cmd);
+				goto bail;
+			}
+		}
+#endif
+#if NYOCI_DTLS
+		else if(strcaseequal(cmd,"DTLSPort")) {
+			char* arg = get_next_arg(line,&line);
+			if(!arg) {
+				syslog(LOG_ERR,"%s:%d: Config option \"%s\" requires an argument.",filename,line_number,cmd);
+				goto bail;
+			}
+
+			nyoci_plat_ssl_set_context(smcp, (void*)gSslCtx);
+
+			if (nyoci_plat_bind_to_port(smcp, NYOCI_SESSION_TYPE_DTLS, (uint16_t)atoi(arg)) != NYOCI_STATUS_OK) {
+				syslog(LOG_ERR,"Unable to bind to port! \"%s\" (%d)",strerror(errno),errno);
+			}
+		}
+#endif
 		else if(strcaseequal(cmd,"Port")) {
 			char* arg = get_next_arg(line,&line);
 			if(!arg) {
 				syslog(LOG_ERR,"%s:%d: Config option \"%s\" requires an argument.",filename,line_number,cmd);
 				goto bail;
 			}
-			// Not really supported at the moment.
-			if(smcp_get_port(smcp)!=atoi(arg))
-				syslog(LOG_ERR,"ListenPort doesn't match current listening port.");
+			if(nyoci_plat_get_port(smcp)!=atoi(arg)) {
+				if (nyoci_plat_bind_to_port(smcp, NYOCI_SESSION_TYPE_UDP, (uint16_t)atoi(arg)) != NYOCI_STATUS_OK) {
+					syslog(LOG_ERR,"Unable to bind to port! \"%s\" (%d)",strerror(errno),errno);
+				}
+
+
+				if(nyoci_plat_get_port(smcp)!=atoi(arg)) {
+					syslog(LOG_ERR,"ListenPort doesn't match current listening port.");
+				}
+			}
 		} else if(strcaseequal(cmd,"PIDFile")) {
 			char* arg = get_next_arg(line,&line);
 			if(!arg) {
@@ -368,83 +447,49 @@ read_configuration(smcp_t smcp,const char* filename) {
 				syslog(LOG_ERR,"%s:%d: Config option \"%s\" requires an argument.",filename,line_number,cmd);
 				goto bail;
 			}
-			smcp_set_proxy_url(smcp,arg);
-		} else if(strcaseequal(cmd,"Pair")) {
-			char* src_arg = get_next_arg(line,&line);
-			char* dest_arg = get_next_arg(line,&line);
-/*
-			if(!src_arg) {
-				syslog(LOG_ERR,"%s:%d: Config option \"%s\" requires an argument.",filename,line_number,cmd);
-				goto bail;
-			}
-			if(!dest_arg) {
-				dest_arg = src_arg;
-				src_arg = ".";
-			}
-			if(url_is_absolute(src_arg)) {
-				syslog(LOG_ERR,"%s:%d: Source path cannot contain an absolute URL: \"%s\"",filename,line_number,src_arg);
-				goto bail;
-			}
-			char dest_path[2000];
-			char src_path[2000];
-			smcp_node_get_path(
-				node,
-				dest_path,
-				sizeof(dest_path)
-			);
-			memcpy(src_path,dest_path,sizeof(dest_path));
-
-			url_change(dest_path,dest_arg);
-			url_change(src_path,src_arg);
-
-			syslog(LOG_INFO,"%s:%d: Pairing \"%s\" -> \"%s\"",filename,line_number,src_path,dest_path);
-
-			status = smcp_pair_with_uri(
-				smcp,
-				src_path,
-				dest_path,
-				SMCP_PAIRING_FLAG_RELIABILITY_PART,
-				NULL
-			);
-			if(status) {
-				syslog(LOG_ERR,"%s:%d: Unable to add pairing, error %d \"%s\"",filename,line_number,status,smcp_status_to_cstr(status));
-				goto bail;
-			}
-*/
+			nyoci_set_proxy_url(smcp,arg);
 		} else if(strcaseequal(cmd,"<node")) {
 			// Fix trailing '>'
 			int linelen = strlinelen(line);
-			//syslog(LOG_DEBUG,"LINE-BEFORE: \"%s\"",line);
+			bool oneline = false;
+
 			while(isspace(line[linelen-1])) line[--linelen]=0;
-			if(line[linelen-1]=='>') {
-				line[--linelen]=0;
+			if (line[linelen-1]=='>') {
+				line[--linelen] = 0;
+				if (line[linelen-1] == '/') {
+					oneline = true;
+					line[--linelen] = 0;
+				}
 			} else {
 				syslog(LOG_ERR,"%s:%d: Missing '>'",filename,line_number);
 				goto bail;
 			}
-			//syslog(LOG_DEBUG,"LINE-AFTER: \"%s\"",line);
+
 			char* arg = get_next_arg(line,&line);
 			char* arg2 = get_next_arg(line,&line);
 			char* arg3 = get_next_arg(line,&line);
-			//syslog(LOG_DEBUG,"ARG1: \"%s\"",arg);
-			//syslog(LOG_DEBUG,"ARG2: \"%s\"",arg2);
-			if(!arg) {
+
+			if (!arg) {
 				syslog(LOG_ERR,"%s:%d: Config option \"%s\" requires an argument.",filename,line_number,cmd);
 				goto bail;
 			}
 
-			smcp_node_t next_node = smcp_node_find(node,arg,strlen(arg));
+			nyoci_node_t next_node = nyoci_node_find(node,arg,strlen(arg));
 
 			if(!next_node) {
 				next_node = smcpd_make_node(arg2?arg2:"node",node,arg,arg3);
 			}
 
-			if(!next_node || next_node->parent!=node) {
+			if (!next_node) {
 				syslog(LOG_ERR,"Node creation failed for node \"%s\"",arg);
+			} else if (next_node->parent != node) {
+				syslog(LOG_ERR,"BUG: Node parent relationship is busted for \"%s\"",arg);
 				goto bail;
 			} else {
-				syslog(LOG_DEBUG,"Created node \"%s\".",arg);
-				node = next_node;
+				syslog(LOG_DEBUG,"Created node \"%s\".", arg);
+				if (!oneline) {
+					node = next_node;
+				}
 			}
 		} else if(strcaseequal(cmd,"</node>")) {
 			if(!node->parent) {
@@ -458,7 +503,7 @@ read_configuration(smcp_t smcp,const char* filename) {
 	}
 
 	if(node->parent) {
-		syslog(LOG_ERR,"Unmatched \"<node>\".");
+		syslog(LOG_ERR,"Unmatched \"<node>\" \"%s\".", node->name);
 		goto bail;
 	}
 
@@ -468,15 +513,91 @@ bail:
 	return ret;
 }
 
+static void
+syslog_dump_select_info(int loglevel, fd_set *read_fd_set, fd_set *write_fd_set, fd_set *error_fd_set, int fd_count, nyoci_cms_t timeout)
+{
+#define DUMP_FD_SET(l, x) do {\
+		int i; \
+		char buffer[90] = ""; \
+		for (i = 0; i < fd_count; i++) { \
+			if (!FD_ISSET(i, x)) { \
+				continue; \
+			} \
+			if (strlen(buffer) != 0) { \
+				strlcat(buffer, ", ", sizeof(buffer)); \
+			} \
+			snprintf(buffer+strlen(buffer), sizeof(buffer)-strlen(buffer), "%d", i); \
+		} \
+		syslog(l, "SELECT:     %s: %s", #x, buffer); \
+	} while (0)
+
+	// Check the log level preemptively to avoid wasted CPU.
+	if((setlogmask(0)&LOG_MASK(loglevel))) {
+		syslog(loglevel, "SELECT: fd_count=%d cms_timeout=%d", fd_count, timeout);
+
+		DUMP_FD_SET(loglevel, read_fd_set);
+		DUMP_FD_SET(loglevel, write_fd_set);
+		//DUMP_FD_SET(loglevel, error_fd_set); // Commented out to reduce log volume
+	}
+}
+
 int
 main(
-	int argc, char * argv[]
+	int argc, char * argv[], char * envp[]
 ) {
-	int i, debug_mode = 0;
-	int port = 0;
-	const char* config_file = ETC_PREFIX "smcp.conf";
+	int i, debug_mode = 0, ssl_ret;
+	uint16_t port = 0;
+	const char* config_file = SYSCONFDIR "/smcp.conf";
+
+	(void)ssl_ret;
+	(void)syslog_dump_select_info;
 
 	openlog(basename(argv[0]),LOG_PERROR|LOG_PID|LOG_CONS,LOG_DAEMON);
+
+#if NYOCI_DTLS
+#if NYOCI_PLAT_TLS_OPENSSL && HAVE_OPENSSL_SSL_CONF_CTX_NEW
+	gSslConfCtx = SSL_CONF_CTX_new();
+#if HAVE_OPENSSL_DTLS_METHOD
+	gSslCtx = SSL_CTX_new(DTLS_method());
+#else
+	gSslCtx = SSL_CTX_new(DTLSv1_method());
+#endif
+	SSL_CONF_CTX_set_ssl_ctx(gSslConfCtx, gSslCtx);
+	SSL_CONF_CTX_set_flags(gSslConfCtx, SSL_CONF_FLAG_CLIENT|SSL_CONF_FLAG_SERVER|SSL_CONF_FLAG_CERTIFICATE|SSL_CONF_FLAG_SHOW_ERRORS);
+#ifdef SSL_CONF_FLAG_REQUIRE_PRIVATE
+	SSL_CONF_CTX_set_flags(gSslConfCtx, SSL_CONF_FLAG_REQUIRE_PRIVATE);
+#endif
+	SSL_CONF_CTX_set_flags(gSslConfCtx, SSL_CONF_FLAG_FILE);
+	SSL_CONF_CTX_set1_prefix(gSslConfCtx, "SMCPD_SSL_");
+
+	for (i = 0; envp[i]; i++) {
+		char key[256] = {};
+		char* value = key;
+		strlcpy(key, envp[i], sizeof(key));
+		strsep(&value, "=");
+
+		ssl_ret = SSL_CONF_cmd(gSslConfCtx, key, value);
+		switch(ssl_ret) {
+		case 1:
+		case 2:
+			syslog(LOG_DEBUG,"ENV OpenSSL => %s", envp[i]);
+			break;
+		case -2:
+			// Skippit.
+			break;
+		default:
+			syslog(LOG_ERR,"OpenSSL Rejected ENV %s", envp[i]);
+			break;
+		}
+	}
+
+	SSL_CONF_CTX_clear_flags(gSslConfCtx, SSL_CONF_FLAG_FILE);
+	SSL_CONF_CTX_set_flags(gSslConfCtx, SSL_CONF_FLAG_CMDLINE);
+	SSL_CONF_CTX_set1_prefix(gSslConfCtx, "--ssl-");
+#else
+	void* ssl_ctx = NULL;
+#endif
+#endif
 
 	gPreviousHandlerForSIGINT = signal(SIGINT, &signal_SIGINT);
 	gPreviousHandlerForSIGTERM = signal(SIGINT, &signal_SIGTERM);
@@ -484,11 +605,32 @@ main(
 
 	srandom(time(NULL));
 
-	if(argc && argv[0][0])
+	if (argc && argv[0][0]) {
 		gProcessName = basename(argv[0]);
+	}
 
 	BEGIN_LONG_ARGUMENTS(gRet)
-	HANDLE_LONG_ARGUMENT("port") port = strtol(argv[++i], NULL, 0);
+#if NYOCI_PLAT_TLS_OPENSSLL && HAVE_OPENSSL_SSL_CONF_CTX_NEW
+	// Handle OpenSSL configuration options on the command line
+    else if ((ssl_ret = SSL_CONF_cmd(gSslConfCtx, argv[i], argv[i+1])) != -2) {
+		if (ssl_ret == 2) {
+			i++;
+		} else if (ssl_ret == 0) {
+			fprintf(stderr,
+				"%s: error: Argument rejected: %s\n",
+				argv[0],
+				argv[i]);
+			return ERRORCODE_BADARG;
+		} else if (ssl_ret < 0) {
+			fprintf(stderr,
+				"%s: error: OpenSSL runtime error for: %s\n",
+				argv[0],
+				argv[i]);
+			return ERRORCODE_BADARG;
+		}
+	}
+#endif
+	HANDLE_LONG_ARGUMENT("port") port = (uint16_t)strtol(argv[++i], NULL, 0);
 	HANDLE_LONG_ARGUMENT("config") config_file = argv[++i];
 	HANDLE_LONG_ARGUMENT("debug") debug_mode++;
 
@@ -502,7 +644,7 @@ main(
 		goto bail;
 	}
 	BEGIN_SHORT_ARGUMENTS(gRet)
-	HANDLE_SHORT_ARGUMENT('p') port = strtol(argv[++i], NULL, 0);
+	HANDLE_SHORT_ARGUMENT('p') port = (uint16_t)strtol(argv[++i], NULL, 0);
 	HANDLE_SHORT_ARGUMENT('d') debug_mode++;
 	HANDLE_SHORT_ARGUMENT('c') config_file = argv[++i];
 	HANDLE_SHORT_ARGUMENT2('h', '?') {
@@ -525,7 +667,15 @@ main(
 	}
 	END_ARGUMENTS
 
-	SMCP_LIBRARY_VERSION_CHECK();
+	NYOCI_LIBRARY_VERSION_CHECK();
+
+	if (debug_mode >= 2) {
+		setlogmask(LOG_UPTO(LOG_DEBUG));
+	} else if (debug_mode == 1) {
+		setlogmask(LOG_UPTO(LOG_INFO));
+	} else if (debug_mode == 0) {
+		setlogmask(LOG_UPTO(LOG_NOTICE));
+	}
 
 	syslog(LOG_NOTICE,"Starting smcpd . . .");
 
@@ -533,33 +683,57 @@ main(
 	syslog(LOG_NOTICE,"Built with libcurl support.");
 #endif
 
-	smcp = smcp_create(port);
+	gMyNyociInstance = nyoci_create();
 
-	if(!smcp) {
+	if (!gMyNyociInstance) {
 		syslog(LOG_CRIT,"Unable to initialize SMCP instance.");
 		gRet = ERRORCODE_UNKNOWN;
 		goto bail;
 	}
 
+	if (port) {
+		if (nyoci_plat_bind_to_port(gMyNyociInstance, NYOCI_SESSION_TYPE_UDP, port) != NYOCI_STATUS_OK) {
+			fprintf(stderr,"%s: FATAL-ERROR: Unable to bind to port! \"%s\" (%d)\n",argv[0],strerror(errno),errno);
+			goto bail;
+		}
+	}
+
+	if (nyoci_plat_get_port(gMyNyociInstance) == 0) {
+		if (nyoci_plat_bind_to_port(gMyNyociInstance, NYOCI_SESSION_TYPE_UDP, COAP_DEFAULT_PORT) != NYOCI_STATUS_OK) {
+			fprintf(stderr,"%s: FATAL-ERROR: Unable to bind to port! \"%s\" (%d)\n",argv[0],strerror(errno),errno);
+			goto bail;
+		}
+	}
+
+	nyoci_plat_join_standard_groups(gMyNyociInstance, NYOCI_ANY_INTERFACE);
+
+	nyoci_set_current_instance(gMyNyociInstance);
+
 	// Set up the root node.
-	smcp_node_init(&root_node,NULL,NULL);
+	nyoci_node_init(&root_node,NULL,NULL);
 
 	// Set up the node router.
-	smcp_set_default_request_handler(smcp, &smcp_node_router_handler, &root_node);
+	nyoci_set_default_request_handler(gMyNyociInstance, &nyoci_node_router_handler, &root_node);
 
-	smcp_set_proxy_url(smcp,getenv("COAP_PROXY_URL"));
+	nyoci_set_proxy_url(gMyNyociInstance, getenv("COAP_PROXY_URL"));
 
-	if(0!=read_configuration(smcp,config_file)) {
+#if NYOCI_PLAT_TLS_OPENSSL && HAVE_OPENSSL_SSL_CONF_CTX_NEW
+	SSL_CONF_CTX_clear_flags(gSslConfCtx, SSL_CONF_FLAG_CMDLINE);
+	SSL_CONF_CTX_set_flags(gSslConfCtx, SSL_CONF_FLAG_FILE);
+	SSL_CONF_CTX_set1_prefix(gSslConfCtx, "SSL");
+#endif
+
+	if (0 != read_configuration(gMyNyociInstance,config_file)) {
 		syslog(LOG_NOTICE,"Error processing configuration file!");
 		gRet = ERRORCODE_BADCONFIG;
 	} else {
-		syslog(LOG_NOTICE,"Daemon started. Listening on port %d.",smcp_get_port(smcp));
+		syslog(LOG_NOTICE,"Daemon started. Listening on port %d.",nyoci_plat_get_port(gMyNyociInstance));
 	}
 
-	while(!gRet) {
-		int fds_ready = 0, max_fd = -1;
+	while (!gRet) {
+		int fds_ready = 0, fd_count = 0;
 		fd_set read_fd_set,write_fd_set,error_fd_set;
-		cms_t cms_timeout = 600000;
+		nyoci_cms_t cms_timeout = 60 * MSEC_PER_SEC;
 		struct timeval timeout = {};
 
 		FD_ZERO(&read_fd_set);
@@ -569,49 +743,66 @@ main(
 			&read_fd_set,
 			&write_fd_set,
 			&error_fd_set,
-			&max_fd,
+			&fd_count,
 			&cms_timeout
 		);
 
-		cms_timeout = MIN(smcp_get_timeout(smcp),cms_timeout);
-		max_fd = MAX(smcp_get_fd(smcp),max_fd);
-		FD_SET(smcp_get_fd(smcp),&read_fd_set);
-		FD_SET(smcp_get_fd(smcp),&error_fd_set);
+		nyoci_plat_update_fdsets(
+			gMyNyociInstance,
+			&read_fd_set,
+			&write_fd_set,
+			&error_fd_set,
+			&fd_count,
+			&cms_timeout
+		);
 
-		timeout.tv_sec = cms_timeout/1000;
-		timeout.tv_usec = (cms_timeout%1000)*1000;
+		//syslog_dump_select_info(LOG_INFO, &read_fd_set,&write_fd_set,&error_fd_set, fd_count, cms_timeout);
 
-		fds_ready = select(max_fd+1,&read_fd_set,&write_fd_set,&error_fd_set,&timeout);
+		if (cms_timeout < 0) {
+			cms_timeout = 0;
+		}
+
+		timeout.tv_sec = cms_timeout / MSEC_PER_SEC;
+		timeout.tv_usec = (cms_timeout % MSEC_PER_SEC) * USEC_PER_MSEC;
+
+		fds_ready = select(fd_count,&read_fd_set,&write_fd_set,&error_fd_set,&timeout);
+
 		if(fds_ready < 0 && errno!=EINTR) {
 			syslog(LOG_ERR,"select() errno=\"%s\" (%d)",strerror(errno),errno);
 			break;
 		}
 
-		smcp_process(smcp);
+		if (gRet) {
+			break;
+		}
 
-		if(smcpd_modules_process()!=SMCP_STATUS_OK) {
+		nyoci_plat_process(gMyNyociInstance);
+
+		if (smcpd_modules_process() != NYOCI_STATUS_OK) {
 			syslog(LOG_ERR,"Module process error.");
 			gRet = ERRORCODE_UNKNOWN;
 		}
 
-		if(gRet == ERRORCODE_SIGHUP) {
+		if (gRet == ERRORCODE_SIGHUP) {
 			gRet = 0;
-			read_configuration(smcp,config_file);
+			read_configuration(gMyNyociInstance, config_file);
 		}
 	}
 
 bail:
 
-	if(gRet == ERRORCODE_QUIT)
+	if (gRet == ERRORCODE_QUIT) {
 		gRet = 0;
+	}
 
-	if(smcp) {
+	if (gMyNyociInstance) {
 		syslog(LOG_NOTICE,"Stopping smcpd . . .");
 
-		if(gPIDFilename)
+		if (gPIDFilename) {
 			unlink(gPIDFilename);
+		}
 
-		smcp_release(smcp);
+		nyoci_release(gMyNyociInstance);
 
 		syslog(LOG_NOTICE,"Stopped.");
 	}
